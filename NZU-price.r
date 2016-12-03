@@ -190,6 +190,7 @@ num [1:10(1d)] 9.62 9.36 10.63 12.81 14.39 ...
 names(y)
  [1] "2016-01" "2016-02" "2016-03" "2016-04" "2016-05" "2016-06" "2016-07"
  [8] "2016-08" "2016-09" "2016-10" 
+
 dim(y) [1] 10
 
 http://stackoverflow.com/questions/16652199/compute-monthly-averages-from-daily-data?rq=1
@@ -294,7 +295,7 @@ str(airquality)
  $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...
  $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...
 
- aggregate(airquality$Temp,list(airquality$Month),mean)
+aggregate(airquality$Temp,list(airquality$Month),mean)
   Group.1        x
 1       5 65.54839
 2       6 79.10000

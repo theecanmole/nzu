@@ -36,10 +36,12 @@ str(monthprice)
 lengthmonthprice <- length(monthprice[["month"]])
 
 # replace month factor with mid month 15th of month date formatted object 
-monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = lengthmonthprice) 
-
+monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
 # round mean prices to whole cents
 monthprice[["price"]] = round(monthprice[["price"]], digits = 2)
+
+# create 'decimal' year vector as an alternative to the month vector, e.g. May 2010 = 2010.333, Jan 2011 = 2011.000
+decimal = seq(2010.333, by = 1/12, length = nrow(monthprice)) 
 
 # examine dataframe
 str(monthprice)
@@ -49,7 +51,7 @@ str(monthprice)
 
 # write new monthly data to a .csv file 
 write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2016.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
-# download from http://bit.ly/2fHbojr
+# download from short url http://bit.ly/2fHbojr which is the address of the Google sheet I uploaded 
 
 sessionInfo()
 R version 3.3.1 (2016-06-21)
