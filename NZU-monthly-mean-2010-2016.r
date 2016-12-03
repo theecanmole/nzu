@@ -8,7 +8,7 @@ rawdata <- read.csv("/home/simon/R/nzu/NZU-weekly-prices-data-2010-2016.csv", sk
 
 # examine dataframe
 str(rawdata)
-'data.frame':	373 obs. of  3 variables:
+'data.frame':	384 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -29,11 +29,11 @@ monthprice<-aggregate(price ~ month, rawdata, mean)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	79 obs. of  2 variables:
+'data.frame':	80 obs. of  2 variables:
  $ month: Factor w/ 79 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.1 ...
 
-lengthmonthprice <- length(monthprice[["month"]])
+#lengthmonthprice <- length(monthprice[["month"]])
 
 # replace month factor with mid month 15th of month date formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -51,7 +51,7 @@ str(monthprice)
 
 # write new monthly data to a .csv file 
 write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2016.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
-# download from short url http://bit.ly/2fHbojr which is the address of the Google sheet I uploaded 
+# upload to the  short url for the Google sheet http://bit.ly/2fHbojr which is the address of the Google sheet I uploaded 
 
 sessionInfo()
 R version 3.3.1 (2016-06-21)
