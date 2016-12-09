@@ -1,12 +1,23 @@
 NZU-monthly-mean-2010-2016 R code
 
-# R code to create a monthly mean time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
+# R code to create a mean monthly time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
 
-# read in raw NZU price data from http://bit.ly/2gmwpy3
+# download raw prices from Github
 
-rawdata <- read.csv("/home/simon/R/nzu/NZU-weekly-prices-data-2010-2016.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings="NA", dec=".", strip.white=TRUE)
+urlrawdata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/NZU-weekly-prices-data-2010-2016.csv")
+                 
+rawdata <-c("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2016.csv")
+
+download.file(urlrawdata, rawdata)
+
+# read in raw prices data
+
+rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2016.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings="NA", dec=".", strip.white=TRUE)
+
+# or read in raw NZU price data from http://bit.ly/2gmwpy3
 
 # examine dataframe
+
 str(rawdata)
 'data.frame':	384 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
@@ -45,12 +56,14 @@ decimal = seq(2010.333, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe
 str(monthprice)
-'data.frame':	79 obs. of  2 variables:
+'data.frame':	80 obs. of  2 variables:
  $ month: Date, format: "2010-05-15" "2010-06-15" ...
- $ price: num  17.6 17.4 18.1 18.4 20.1 ...
+ $ price: num  17.6 17.4 18.1 18.4 20.2 ...
 
 # write new monthly data to a .csv file 
+
 write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2016.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+
 # upload to the  short url for the Google sheet http://bit.ly/2fHbojr which is the address of the Google sheet I uploaded 
 
 sessionInfo()
@@ -74,23 +87,3 @@ other attached packages:
 
 loaded via a namespace (and not attached):
 [1] tools_3.3.1
-
-url <- c("https://raw.githubusercontent.com/theecanmole/new-zealand-unit-nzu-emission-unit-prices-2010-to-2016/gh-pages/nzu-month-price-2010-2016.csv")
-file <- c("/home/simon/R/nzu-month-price-2010-2016.csv")
-
-url
-file
-
-url
-[1] "https://raw.githubusercontent.com/theecanmole/new-zealand-unit-nzu-emission-unit-prices-2010-to-2016/gh-pages/nzu-month-price-2010-2016.csv"
-file
-[1] "/home/simon/R/nzu-month-price-2010-2016.csv"
-
-download.file(url, file)
-# worked fine the csv file is in /home/simon/R/
-
-urlrawdata <- c("https://raw.githubusercontent.com/theecanmole/new-zealand-unit-nzu-emission-unit-prices-2010-to-2016/gh-pages/NZU-weekly-prices-data-2010-2016.csv")
-filerawdata <-c("/home/simon/R/nzu-weekly-prices-data-2010-2016.csv")
-
-download.file(urlrawdata, filerawdata)
-# worked fine the csv file is in /home/simon/R/ 
