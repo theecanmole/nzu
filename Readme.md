@@ -18,4 +18,4 @@ The raw price data is processed with a R script into a mean monthly time series.
 
 4. NZU-charts.r                         (R script file of code to create charts)
 
-5. Licence.txt                          (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
+5. Licence.txt           (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
