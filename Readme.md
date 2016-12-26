@@ -35,3 +35,7 @@ This data package and these datasets and the R scripts are made available under 
 4. NZU-charts.r                         (R script file of code to create charts)
 
 5. Licence.txt           (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
+
+#### Citation
+
+[![DOI](https://zenodo.org/badge/75373224.svg)](https://zenodo.org/badge/latestdoi/75373224)
