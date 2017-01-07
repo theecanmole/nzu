@@ -1,0 +1,106 @@
+{
+  "name": "nzu",
+  "title": "New Zealand emission unit (NZU) monthly prices 2010 to 2016",
+  "created": "2016-12-26T06:48:48.656863+00:00", 
+  "doi": "10.5281/zenodo.221328", 
+  "id": 221328, 
+  "links": {
+    "badge": "https://zenodo.org/badge/doi/10.5281/zenodo.221328.svg", 
+    "doi": "https://doi.org/10.5281/zenodo.221328", 
+    "html": "https://zenodo.org/record/221328"
+  }, 
+  "metadata": {
+    "access_right": "open", 
+    "access_right_category": "success", 
+    "creators": [
+      {
+        "name": "Theecanmole"
+      }
+    ], 
+    "description": "<p>This data and R code repository provides a reproducible public domain data series of mean monthly spot prices of the New Zealand emission unit (or \"NZU\"), the domestic emission unit in the New Zealand emissions trading scheme (https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/). Version 1.0.01</p>", 
+    "doi": "10.5281/zenodo.221328", 
+    "keywords": [
+      "NZU", 
+      "New Zealand carbon price", 
+      "New Zealand emission unit price", 
+      "emissions trading"
+    ], 
+    
+    "license": {
+      "id": "ODC-PDDL-1.0"
+    }, 
+    "notes": "Includes R programming language script", 
+    "publication_date": "2016-12-26", 
+    "related_identifiers": [
+      {
+        "identifier": "https://github.com/theecanmole/nzu/tree/v1.0.01", 
+        "relation": "isSupplementTo", 
+        "scheme": "url"
+      }
+    
+    ],
+  "resources": [
+    {
+      "name": "nzu-month-price-2010-2016",
+      "path": "nzu-month-price-2010-2016.csv",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "price",
+            "type": "number"
+          },
+          {
+            "name": "month",
+            "type": "date",
+            "description": "YYYY-MM-DD"
+          },
+          {
+            "name": "decimal",
+            "type": "number",
+            "description": "Mean monthly spot prices of the New Zealand emission unit or NZU the domestic emission unit in the New Zealand emissions trading scheme."
+          }
+        ]
+      }
+    },
+    {
+      "name": "nzu-weekly-prices-data-2010-2016",
+      "path": "nzu-weekly-prices-data-2010-2016.csv",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "date",
+            "type": "date",
+            "description": "YYYY-MM-DD"
+          },
+          {
+            "name": "reference",
+            "type": "string",
+            "description": "the url indicating a price"
+          },
+          {
+            "name": "price",
+            "type": "number",
+            "description": "The raw price data was manually 'web-scraped' and recorded with the date and url reference."
+          }
+        ]
+      }
+    }
+  ],
+
+
+    "resource_type": {
+      "title": "Dataset", 
+      "type": "dataset"
+    }, 
+    "title": "New Zealand emission unit (NZU) monthly prices 2010 to 2016: V1.0.01"
+  }, 
+  "owners": [
+    26804
+  ], 
+  "revision": 3, 
+  "updated": "2016-12-26T07:59:44.982373+00:00"
+}
