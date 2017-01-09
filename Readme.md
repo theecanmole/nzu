@@ -14,9 +14,9 @@ Data preparation was performed with the [R programming language](https://www.r-p
 
 #### Processing
 
-The raw price data has been manually 'web-scraped' and recorded in the file "NZU-weekly-prices-data-2010-2016.csv". It is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1Ru2Mu7iSwVhO3Dud4jciNYPM1mryNoMYEYPZNEpYUpA/edit#gid=176935002 "Google sheet") and via the short url [http://bit.ly/2gmwpy3](http://bit.ly/2gmwpy3).
+The raw price data has been manually 'web-scraped' and recorded in the file [NZU-weekly-prices-data-2010-2016.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data-2010-2016.csv). The data is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1Ru2Mu7iSwVhO3Dud4jciNYPM1mryNoMYEYPZNEpYUpA/edit#gid=176935002 "Google sheet") and via the short url [http://bit.ly/2gmwpy3](http://bit.ly/2gmwpy3).
 
-Run the R script from this directory to download and process the raw data into a mean monthly time series. This is then written to a file "nzu-month-price-2010-2016.csv". This also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg/ "Google sheet") and via the short url [http://bit.ly/2fHbojr](http://bit.ly/2fHbojr).
+Run the R script from this directory to download and process the raw data into a mean monthly time series. This is then written to a file [nzu-month-price-2010-2016.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price-2010-2016.csv). This also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg/ "Google sheet") and via the short url [http://bit.ly/2fHbojr](http://bit.ly/2fHbojr).
 
 ### License
 
@@ -27,15 +27,15 @@ This data package and these datasets and the R scripts are made available under 
 
 #### Index of files
 
-1. NZU-weekly-prices-data-2010-2016.csv (web-scraped raw price data, irregular dates, price and url reference)
+1. [NZU-weekly-prices-data-2010-2016.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data-2010-2016.csv) (web-scraped raw price data, irregular dates, price and url reference)
 
-2. NZU-monthly-mean-2010-2016.r         (R script file of code to process raw price data to monthly mean price)
+2. [NZU-monthly-mean-2010-2016.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean-2010-2016.r)         (R script file of code to process raw price data to monthly mean price)
 
-3. nzu-month-price-2010-2016.csv        (the output data, the processed monthly mean of the raw price data)
+3. [nzu-month-price-2010-2016.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price-2010-2016.csv)        (the output data, the processed monthly mean of the raw price data)
 
-4. NZU-charts.r                         (R script file of code to create charts)
+4. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r)                         (R script file of code to create charts)
 
-5. Licence.txt           (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
+5. [Licence.txt](https://github.com/theecanmole/nzu/blob/master/Licence.txt)           (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
 
 #### Citation
 
