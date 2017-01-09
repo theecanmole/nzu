@@ -33,7 +33,7 @@ This data package and these datasets and the R scripts are made available under 
 
 3. [nzu-month-price-2010-2016.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price-2010-2016.csv)        (the output data, the processed monthly mean of the raw price data)
 
-4. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r)                         (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svghttps://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
+4. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r)                         (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
 
 5. [Licence.txt](https://github.com/theecanmole/nzu/blob/master/Licence.txt)           (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
 
