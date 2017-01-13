@@ -17,7 +17,7 @@
         "name": "Theecanmole"
       }
     ], 
-    "description": "<p>This data and R code repository provides a reproducible public domain data series of mean monthly spot prices of the New Zealand emission unit (or \"NZU\"), the domestic emission unit in the New Zealand emissions trading scheme (https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/). Version 1.0.01</p>", 
+    "description": "This data and R code repository provides a reproducible public domain data series of mean monthly spot prices of the New Zealand emission unit (or \"NZU\"), the domestic emission unit in the New Zealand emissions trading scheme (https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/). Version 1.0.01", 
     "doi": "10.5281/zenodo.221328", 
     "keywords": [
       "NZU", 
