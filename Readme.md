@@ -6,11 +6,13 @@ This data repository provides a reproducible public domain data series of mean m
 
 New Zealand has had an emissions trading scheme since 2009.  Although private sector carbon brokers such as [OMF](https://www.commtrade.co.nz/ "OMF") and [Carbon Forest Services](http://www.carbonforestservices.co.nz/carbon-prices.html "Carbon Forest Services") display current and some historic trading prices for sales of the NZ emission unit (the "NZU"), there is no public data series of the New Zealand carbon price. However, NZU prices are frequently displayed online on various 'carbon news' websites. 
 
+There is a chart of the data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
+
 ### Data Preparation
 
 #### Requirements
 
-Data preparation was performed with the [R programming language](https://www.r-project.org/about.html), R version 3.3.1 (2016-06-21) with the [RKWard 0.6.5 IDE](https://rkward.kde.org/) running on an i586-pc-linux-gnu (32-bit), [Debian GNU/Linux 8 (Jessie) MX-16](https://mxlinux.org/index.php) operating system on a Dell Inspiron 6000 laptop.
+Data preparation was performed with the [R programming language](https://www.r-project.org/about.html), R version 3.3.2 (2016-10-31) with the [RKWard 0.6.5 IDE](https://rkward.kde.org/) running on an i586-pc-linux-gnu (32-bit), [Debian GNU/Linux 8 (Jessie) MX-16](https://mxlinux.org/index.php) operating system on a Dell Inspiron 6000 laptop.
 
 #### Processing
 
