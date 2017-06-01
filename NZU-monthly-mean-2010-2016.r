@@ -19,7 +19,7 @@ rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2016.csv", sk
 # examine dataframe
 
 str(rawdata)
-'data.frame':	412 obs. of  3 variables:
+'data.frame':	417 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -29,24 +29,25 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-data.frame:	412 obs. of  4 variables:
+data.frame:	417 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
  $ month    : Factor w/ 84 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
- 
 
 # create new dataframe of monthly mean price 
 monthprice<-aggregate(price ~ month, rawdata, mean)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	84 obs. of  2 variables:
- $ month: Factor w/ 84 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
+'data.frame':	85 obs. of  2 variables:
+ $ month: Factor w/ 85 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ... 
 
 # create vector that is the number of months and the number of rows in 'monthprice' 
 lengthmonthprice <- length(monthprice[["month"]])
+lengthmonthprice
+[1] 85
 
 # replace month factor with mid-month 15th of month date-formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -59,18 +60,20 @@ monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe - again
 str(monthprice)
-'data.frame':	84 obs. of  3 variables:
+'data.frame':	85 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
  
 # write the new monthly data to a .csv file 
 
-write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2016.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2017.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 # upload the csv file to the Google sheet short url http://bit.ly/2fHbojr via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
-# open a xterminal window and enter "gdrive upload /home/simon/R/nzu/nzu-month-price-2010-2016.csv"
-# or open the Google sheet at short url http://bit.ly/2fHbojr nad manually upload
+
+# open a xterminal window and enter "gdrive update 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg /home/simon/R/nzu/nzu-month-price-2010-2017.csv"
+
+# or open the Google sheet at short url http://bit.ly/2fHbojr and manually upload
 
 sessionInfo()
 R version 3.3.2 (2016-10-31)
