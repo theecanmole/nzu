@@ -1,25 +1,25 @@
-NZU-monthly-mean-2010-2016 R code
+NZU-monthly-mean-2010-2017 R code
 
 # R code to create a mean monthly time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
 
 # download raw prices from Github
 
-urlrawdata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/NZU-weekly-prices-data-2010-2016.csv")
+urlrawdata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/NZU-weekly-prices-data-2010-2017.csv")
                  
-rawdata <-c("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2016.csv")
+rawdata <-c("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2017.csv")
 
 download.file(urlrawdata, rawdata)
 
 # or read in raw prices data from a local folder
 
-rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2016.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings="NA", dec=".", strip.white=TRUE)
+rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2017.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings="NA", dec=".", strip.white=TRUE)
 
 # or read in raw NZU price data from http://bit.ly/2gmwpy3
 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	417 obs. of  3 variables:
+'data.frame':	429 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -40,14 +40,14 @@ monthprice<-aggregate(price ~ month, rawdata, mean)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	85 obs. of  2 variables:
+'data.frame':	87 obs. of  2 variables:
  $ month: Factor w/ 85 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ... 
 
 # create vector that is the number of months and the number of rows in 'monthprice' 
 lengthmonthprice <- length(monthprice[["month"]])
 lengthmonthprice
-[1] 85
+[1] 87
 
 # replace month factor with mid-month 15th of month date-formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -60,7 +60,7 @@ monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe - again
 str(monthprice)
-'data.frame':	85 obs. of  3 variables:
+'data.frame':	87 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
@@ -72,12 +72,14 @@ write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2017.csv"
 # upload the csv file to the Google sheet short url http://bit.ly/2fHbojr via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
 
 # open a xterminal window and enter "gdrive update 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg /home/simon/R/nzu/nzu-month-price-2010-2017.csv"
+# Uploading /home/simon/R/nzu/nzu-month-price-2010-2017.csv
+# Updated 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg at /s, total 
 
 # or open the Google sheet at short url http://bit.ly/2fHbojr and manually upload
 
 sessionInfo()
-R version 3.3.2 (2016-10-31)
-Platform: i586-pc-linux-gnu (32-bit)
+R version 3.3.3 (2017-03-06)
+Platform: i686-pc-linux-gnu (32-bit)
 Running under: Debian GNU/Linux 8 (jessie)
 
 locale:
@@ -95,5 +97,5 @@ other attached packages:
 [1] rkward_0.6.5
 
 loaded via a namespace (and not attached):
-[1] tools_3.3.2
+[1] tools_3.3.3
  

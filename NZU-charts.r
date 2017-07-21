@@ -17,11 +17,11 @@ download.file(urldata, monthprice)
 #downloaded 2522 bytes
 
 # read in raw prices data from the .csv file in the destination folder
-monthprice <- read.csv("/home/simon/nzu-month-price-2010-2016.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
+monthprice <- read.csv("/home/simon/nzu-month-price-2010-2017.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	84 obs. of  3 variables:
+'data.frame':	85 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
