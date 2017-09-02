@@ -26,7 +26,24 @@ str(monthprice)
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
  
-# create svg format chart
+
+
+# create svg format chart with 16 pt text font and grid lines via 'abline'
+svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
+axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2017), labels = c(2011:2017), tick = TRUE)
+box()
+abline(v=c(2011:2017),col="darkgray",lwd=1,lty=2)
+abline(h=c(5,10,15,20),col="darkgray",lwd=1,lty=2)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+axis(side=2, tck=0.01, las=0,tick=TRUE,labels = TRUE)
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
+
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
@@ -38,17 +55,7 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
-# create svg format chart with smaller text font
-svg(filename="NZUprice-720by540smf.svg", width = 8, height = 6, pointsize = 12, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
-par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
-grid(col="darkgray",lwd=1)
-axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
-mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
-mtext(side=4,cex=0.75, line=0.05,R.version.string)
-dev.off()
+
 
 # create svg format chart with smaller text font =14
 svg(filename="NZUprice-720by540f14.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
@@ -73,7 +80,7 @@ mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
 # Use 'decimal' year vector in place of date-formatted month vector
-svg(filename="NZUpricedecimal-720by540-03-2017.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=1,type='l',lty=1)
 points(monthprice[["decimal"]],monthprice[["price"]],pch = 20)
