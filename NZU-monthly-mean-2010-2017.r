@@ -19,7 +19,7 @@ rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2017.csv", sk
 # examine dataframe
 
 str(rawdata)
-'data.frame':	439 obs. of  3 variables:
+'data.frame':	447 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -29,7 +29,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-data.frame:	439 obs. of  4 variables:
+data.frame:	447 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -97,5 +97,4 @@ other attached packages:
 [1] rkward_0.6.5
 
 loaded via a namespace (and not attached):
-[1] tools_3.3.3
- 
+[1] tools_3.3.3 
