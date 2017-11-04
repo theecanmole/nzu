@@ -79,7 +79,7 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
-# Use 'decimal' year vector in place of date-formatted month vector
+# Use 'decimal' year vector in place of date-formatted month vector black dots
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=1,type='l',lty=1)
