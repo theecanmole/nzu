@@ -55,6 +55,25 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
+------------------
+# plot the more detailed 'weekly' data
+str(rawdata)
+'data.frame':	455 obs. of  4 variables:
+ $ date     : Date, format: "2010-05-14" "2010-05-21" ...
+ $ price    : num  17.8 17.5 17.5 17 17.8 ...
+ $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
+ $ month    : Factor w/ 90 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
+
+svg(filename="NZUpricesweekly-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(rawdata[["date"]],rawdata[["price"]],ylim=c(0,24),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+grid(col="darkgray",lwd=1)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
 
 
 # create svg format chart with smaller text font =14
@@ -87,6 +106,25 @@ points(monthprice[["decimal"]],monthprice[["price"]],pch = 20)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=1,line=-1.3,"Data: 'NZU-prices-data-2010-2016' http://bit.ly/2fHbojr")
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
+-----------------------------------
+22/12/2017
+# plot 2016 - 2017 only
+
+svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(monthprice[["decimal"]],monthprice[["price"]],xlim=c(2016,2017),ylim=c(0,24),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
+points(monthprice[["decimal"]],monthprice[["price"]],col=1)
+axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2017), labels = c(2011:2017), tick = TRUE)
+box()
+abline(v=c(2016:2017),col="darkgray",lwd=1,lty=2)
+abline(h=c(5,10,15,20),col="darkgray",lwd=1,lty=2)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+axis(side=2, tck=0.01, las=0,tick=TRUE,labels = TRUE)
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
 mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
