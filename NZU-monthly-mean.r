@@ -1,25 +1,25 @@
-NZU-monthly-mean-2010-2017 R code
+NZU-monthly-mean (2010-2018) R code
 
 # R code to create a mean monthly time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
 
 # download raw prices from Github
 
-urlrawdata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/NZU-weekly-prices-data-2010-2017.csv")
+urlrawdata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/NZU-weekly-prices-data.csv")
                  
-rawdata <-c("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2017.csv")
+rawdata <-c("/home/simon/R/nzu/nzu-weekly-prices-data.csv")
 
 download.file(urlrawdata, rawdata)
 
 # or read in raw prices data from a local folder
 
-rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data-2010-2017.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings='NA', dec=".", strip.white=TRUE)
+rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings='NA', dec=".", strip.white=TRUE)
 
 # or read in raw NZU price data from http://bit.ly/2gmwpy3
 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	482 obs. of  3 variables:
+'data.frame':	487 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -29,11 +29,11 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-data.frame:	482 obs. of  4 variables:
+data.frame:	487 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
- $ month    : Factor w/ 90 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
+ $ month    : Factor w/ 93 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
 
 # create new dataframe of monthly mean price 
 monthprice<-aggregate(price ~ month, rawdata, mean)
@@ -47,7 +47,7 @@ str(monthprice)
 # create vector that is the number of months and the number of rows in 'monthprice' 
 lengthmonthprice <- length(monthprice[["month"]])
 lengthmonthprice
-[1] 92
+[1] 93
 
 # replace month factor with mid-month 15th of month date-formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -60,19 +60,19 @@ monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe - again
 str(monthprice)
-'data.frame':	92 obs. of  3 variables:
+'data.frame':	93 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
  
 # write the new monthly data to a .csv file 
 
-write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price-2010-2017.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 # upload the csv file to the Google sheet short url http://bit.ly/2fHbojr via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
 
-# open a xterminal window and enter "gdrive update 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg /home/simon/R/nzu/nzu-month-price-2010-2017.csv"
-# Uploading /home/simon/R/nzu/nzu-month-price-2010-2017.csv
+# open a xterminal window and enter "gdrive update 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg /home/simon/R/nzu/nzu-month-price.csv"
+# Uploading /home/simon/R/nzu/nzu-month-price.csv
 # Updated 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg at /s, total 
 
 # or open the Google sheet at short url http://bit.ly/2fHbojr and manually upload

@@ -4,10 +4,10 @@
 # make a short 'list' for the url
 urldata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/nzu-month-price-2010-2016.csv")
 # define the destination file name and location                 
-monthprice <-c("/home/simon/nzu-month-price-2010-2016.csv")
+monthprice <-c("/home/simon/nzu-month-price.csv")
 
 str(monthprice)
- chr "/home/simon/nzu-month-price-2010-2016.csv"
+ chr "/home/simon/nzu-month-price.csv"
  
 download.file(urldata, monthprice)
 
@@ -17,11 +17,11 @@ download.file(urldata, monthprice)
 #downloaded 2522 bytes
 
 # read in raw prices data from the .csv file in the destination folder
-monthprice <- read.csv("/home/simon/nzu-month-price-2010-2017.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
+monthprice <- read.csv("/home/simon/nzu-month-price.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	89 obs. of  3 variables:
+'data.frame':	92 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
@@ -29,17 +29,17 @@ str(monthprice)
 
 
 # create svg format chart with 16 pt text font and grid lines via 'abline'
-svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+svg(filename="NZUprice-720by540grid.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
-axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2017), labels = c(2011:2017), tick = TRUE)
+axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2018), labels = c(2011:2018), tick = TRUE)
 box()
-abline(v=c(2011:2017),col="darkgray",lwd=1,lty=2)
+abline(v=c(2011:2018),col="darkgray",lwd=1,lty=2)
 abline(h=c(5,10,15,20),col="darkgray",lwd=1,lty=2)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 axis(side=2, tck=0.01, las=0,tick=TRUE,labels = TRUE)
 mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2018")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
@@ -83,12 +83,12 @@ plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TR
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2018")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
-png("NZU-800by600-2016-11.png", bg="white", width=800, height=600,pointsize = 16)
+png("NZU-800by600-2017-12.png", bg="white", width=800, height=600,pointsize = 16)
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TRUE,ann=TRUE,las=1,col="#F32424",lwd=2,type='l')
 grid(col="darkgray",lwd=1)
@@ -105,27 +105,29 @@ plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,24),tck=0.01,axes=TR
 points(monthprice[["decimal"]],monthprice[["price"]],pch = 20)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=1,line=-1.3,"Data: 'NZU-prices-data-2010-2016' http://bit.ly/2fHbojr")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU-prices-data-2010-2017' http://bit.ly/2fHbojr")
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2018")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 -----------------------------------
-22/12/2017
-# plot 2016 - 2017 only
+11/02/2018  
+# plot 2017
 
-svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+svg(filename="NZUprice-720by540-2017.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],xlim=c(2016,2017),ylim=c(0,24),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
-points(monthprice[["decimal"]],monthprice[["price"]],col=1)
-axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2017), labels = c(2011:2017), tick = TRUE)
+plot(monthprice[["decimal"]],monthprice[["price"]],xlim=c(2017.042,2018.042),ylim=c(0,24),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=1,type='o',lty=1)
+#points(monthprice[["decimal"]],monthprice[["price"]],col=1,xlim=c(2017.042,2018.042))
+axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2017.042, 2017.125, 2017.208, 2017.292, 2017.375, 2017.458, 2017.542, 2017.625, 2017.708, 2017.792, 2017.875, 2017.958,2018.042), labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec","Jan"), tick = TRUE)
 box()
-abline(v=c(2016:2017),col="darkgray",lwd=1,lty=2)
+abline(v=c(2017.042, 2017.125, 2017.208, 2017.292, 2017.375, 2017.458, 2017.542, 2017.625, 2017.708, 2017.792, 2017.875, 2017.958,2018.042),col="darkgray",lwd=1,lty=2)
 abline(h=c(5,10,15,20),col="darkgray",lwd=1,lty=2)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 axis(side=2, tck=0.01, las=0,tick=TRUE,labels = TRUE)
 mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2017")) )
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2017")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
+
+monthprice[["decimal"]]
