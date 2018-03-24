@@ -69,13 +69,37 @@ str(monthprice)
 
 write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
+# write the edited raw data to a .csv file 
+
+write.table(rawdata, file = "/home/simon/R/nzu/nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+
 # upload the csv file to the Google sheets short url http://bit.ly/2fHbojr via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
 # open a xterminal window
-$ for first upload enter "gdrive upload /home/simon/R/nzu/nzu-month-price.csv"
+$ for first upload enter enter "gdrive upload /home/simon/R/nzu/nzu-edited-raw-prices-data.csv" and "gdrive upload /home/simon/R/nzu/nzu-month-price.csv"
+$ simon@i6:~ Uploading /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
+$ simon@i6:~ Uploaded 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl at 16.3 KB/s, total 38.3 KB
+
 $ simon@i6:~ Uploading /home/simon/R/nzu/nzu-month-price.csv
 $ simon@i6:~ Uploaded 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC at 1.2 KB/s, total 2.9 KB
+
 # to download enter "gdrive download 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC"
 # for subsequent updates enter "gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC /home/simon/R/nzu/nzu-month-price.csv"
+
+simon@i6:~
+$ gdrive info 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl
+Id: 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl
+Name: nzu-edited-raw-prices-data.csv
+Path: nzu-edited-raw-prices-data.csv
+Mime: text/csv
+Size: 38.3 KB
+Created: 2018-03-24 18:57:49
+Modified: 2018-03-24 18:57:49
+Md5sum: e6d243b62b753db1d8289aa2862e3854
+Shared: False
+Parents: 0AMLhMBA3NXL4Uk9PVA
+ViewUrl: https://drive.google.com/file/d/1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl/view?usp=drivesdk
+DownloadUrl: https://drive.google.com/uc?id=1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl&export=download
+
 simon@i6:~
 $ gdrive info 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC
 Id: 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC
@@ -95,7 +119,7 @@ DownloadUrl: https://drive.google.com/uc?id=1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC&ex
 sessionInfo()
 R version 3.3.3 (2017-03-06)
 Platform: i686-pc-linux-gnu (32-bit)
-Running under: Debian GNU/Linux 8 (jessie)
+Running under: Debian GNU/Linux 9 (stretch)
 
 locale:
  [1] LC_CTYPE=en_NZ.UTF-8          LC_NUMERIC=C                 
