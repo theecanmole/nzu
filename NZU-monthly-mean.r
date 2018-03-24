@@ -19,7 +19,7 @@ rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data.csv", skip=0, head
 # examine dataframe
 
 str(rawdata)
-'data.frame':	487 obs. of  3 variables:
+'data.frame':	503 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -29,7 +29,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-data.frame:	487 obs. of  4 variables:
+data.frame:	503 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -40,14 +40,14 @@ monthprice<-aggregate(price ~ month, rawdata, mean)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	92 obs. of  2 variables:
- $ month: Factor w/ 91 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
+'data.frame':	94 obs. of  2 variables:
+ $ month: Factor w/ 94 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ... 
 
 # create vector that is the number of months and the number of rows in 'monthprice' 
 lengthmonthprice <- length(monthprice[["month"]])
 lengthmonthprice
-[1] 93
+[1] 94
 
 # replace month factor with mid-month 15th of month date-formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -60,7 +60,7 @@ monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe - again
 str(monthprice)
-'data.frame':	93 obs. of  3 variables:
+'data.frame':	94 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
@@ -69,13 +69,28 @@ str(monthprice)
 
 write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
-# upload the csv file to the Google sheet short url http://bit.ly/2fHbojr via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
+# upload the csv file to the Google sheets short url http://bit.ly/2fHbojr via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
+# open a xterminal window
+$ for first upload enter "gdrive upload /home/simon/R/nzu/nzu-month-price.csv"
+$ simon@i6:~ Uploading /home/simon/R/nzu/nzu-month-price.csv
+$ simon@i6:~ Uploaded 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC at 1.2 KB/s, total 2.9 KB
+# to download enter "gdrive download 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC"
+# for subsequent updates enter "gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC /home/simon/R/nzu/nzu-month-price.csv"
+simon@i6:~
+$ gdrive info 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC
+Id: 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC
+Name: nzu-month-price.csv
+Path: nzu-month-price.csv
+Mime: text/csv
+Size: 2.9 KB
+Created: 2018-03-24 17:06:05
+Modified: 2018-03-24 17:06:05
+Md5sum: b7e9eab4d26786cee1ae68b9a15e5891
+Shared: False
+Parents: 0AMLhMBA3NXL4Uk9PVA
+ViewUrl: https://drive.google.com/file/d/1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC/view?usp=drivesdk
+DownloadUrl: https://drive.google.com/uc?id=1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC&export=download.file
 
-# open a xterminal window and enter "gdrive update 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg /home/simon/R/nzu/nzu-month-price.csv"
-# Uploading /home/simon/R/nzu/nzu-month-price.csv
-# Updated 1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg at /s, total 
-
-# or open the Google sheet at short url http://bit.ly/2fHbojr and manually upload
 
 sessionInfo()
 R version 3.3.3 (2017-03-06)
