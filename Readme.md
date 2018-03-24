@@ -1,4 +1,4 @@
-## New Zealand Emission Unit Prices in the NZ Emissions Trading Scheme 2010 to 2017. 
+## New Zealand Emission Unit Prices in the NZ Emissions Trading Scheme 2010 to date. 
 
 ### Description
 
@@ -12,13 +12,13 @@ There is a chart of the data at [Wikimedia Commons](https://commons.wikimedia.or
 
 #### Requirements
 
-Data preparation was performed with the [R programming language](https://www.r-project.org/about.html), R version 3.3.3 (2017-03-06) with the [RKWard 0.6.5 IDE](https://rkward.kde.org/) running on an i586-pc-linux-gnu (32-bit), [Debian GNU/Linux 8 (Jessie) MX-16](https://mxlinux.org/index.php) operating system on a Dell Inspiron 6000 laptop.
+Data preparation was performed with the [R programming language](https://www.r-project.org/about.html), R version 3.3.3 (2017-03-06) with the [RKWard 0.6.5 IDE](https://rkward.kde.org/) running on an i586-pc-linux-gnu (32-bit), [Debian GNU/Linux 9 (Stretch) MX-17](https://mxlinux.org/index.php) operating system on a Dell Inspiron 6000 laptop.
 
 #### Processing
 
-The raw price data has been manually 'web-scraped' and recorded in the file [NZU-weekly-prices-data-2010-2017.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data-2010-2017.csv). The data is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1Ru2Mu7iSwVhO3Dud4jciNYPM1mryNoMYEYPZNEpYUpA/edit#gid=176935002 "Google sheet") and via the short url [http://bit.ly/2gmwpy3](http://bit.ly/2gmwpy3).
+The raw price data has been manually 'web-scraped' and recorded in the file [NZU-weekly-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data.csv). The data is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1Ru2Mu7iSwVhO3Dud4jciNYPM1mryNoMYEYPZNEpYUpA/edit#gid=176935002 "Google sheet").
 
-Run the R script [NZU-monthly-mean-2010-2017.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean-2010-2017.r) from this directory to download and process the raw data into a mean monthly time series. This is then written to a file [nzu-month-price-2010-2017.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price-2010-2017.csv). This also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1xmy9kbolsS_Qtd5V8FY0RblHv9ecgHtEoxGITwM4whg/ "Google sheet") and via the short url [http://bit.ly/2fHbojr](http://bit.ly/2fHbojr).
+Run the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) from this directory to download and process the raw data into a mean monthly time series. This is then written to a file [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv). This also available as a [Google sheet](https://drive.google.com/uc?id=1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC&export=download.file/ "Google sheet").
 
 ### License
 
@@ -29,11 +29,11 @@ This data package and these datasets and the R scripts are made available under 
 
 #### Index of files
 
-1. [NZU-weekly-prices-data-2010-2017.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data-2010-2017.csv) (web-scraped raw price data, irregular dates, price and url reference)
+1. [NZU-weekly-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data.csv) (web-scraped raw price data, irregular dates, price and url reference)
 
-2. [NZU-monthly-mean-2010-2017.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean-2010-2017.r)     (R script file of code to process raw price data to monthly mean price)
+2. [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r)     (R script file of code to process raw price data to monthly mean price)
 
-3. [nzu-month-price-2010-2017.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price-2010-2017.csv) (the output data, the processed monthly mean of the raw price data)
+3. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the output data, the processed monthly mean of the raw price data)
 
 4. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r) (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
 
