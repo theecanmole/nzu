@@ -33,7 +33,7 @@ This data package and these datasets and the R scripts are made available under 
 
 1. [nzu-weekly-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data.csv) (web-scraped raw price data, irregular dates, price and url reference)
 
-2. [nzu-edited-raw-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data.csv) (raw price data, irregular dates, with added month coloumn, price and url reference)
+2. [nzu-edited-raw-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data.csv) (raw price data, irregular dates, with added month column, price and url reference)
 
 3. [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r)     (R script file of code to process raw price data to monthly mean price)
 
