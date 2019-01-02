@@ -12,12 +12,12 @@ download.file(urlrawdata, rawdata)
 
 # or read in raw prices data from a local folder
 
-rawdata <- read.csv("/home/user/R/nzu/nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings='NA', dec=".", strip.white=TRUE)
+rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings='NA', dec=".", strip.white=TRUE)
 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	683 obs. of  3 variables:
+'data.frame':	697 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -27,25 +27,25 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-data.frame:	683 obs. of  4 variables:
+data.frame:	697 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
- $ month    : Factor w/ 103 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
+ $ month    : Factor w/ 104 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
 
 # create new dataframe of monthly mean price 
 monthprice<-aggregate(price ~ month, rawdata, mean)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	103 obs. of  2 variables:
- $ month: Factor w/ 101 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
+'data.frame':	104 obs. of  2 variables:
+ $ month: Factor w/ 104 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ... 
 
 # create a vector that is the number of months and the number of rows in 'monthprice' 
 lengthmonthprice <- length(monthprice[["month"]])
 lengthmonthprice
-[1] 103
+[1] 104
 
 # replace month factor with mid-month 15th of month date-formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -58,41 +58,41 @@ monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe - again
 str(monthprice)
-'data.frame':	103 obs. of  3 variables:
+'data.frame':	104 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
  
 # write the new monthly data to a .csv file 
 
-write.table(monthprice, file = "/home/user/R/nzu/nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 # write the edited raw data to a .csv file 
 
-write.table(rawdata, file = "/home/user/R/nzu/nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(rawdata, file = "/home/simon/R/nzu/nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 # upload the csv file to the Google Drive via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
 # open a xterminal window
 # for first ever upload enter;
-gdrive upload /home/user/R/nzu/nzu-weekly-prices-data.csv
-gdrive upload /home/user/R/nzu/nzu-edited-raw-prices-data.csv
-gdrive upload /home/user/R/nzu/nzu-month-price.csv
+gdrive upload /home/simon/R/nzu/nzu-weekly-prices-data.csv
+gdrive upload /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
+gdrive upload /home/simon/R/nzu/nzu-month-price.csv
 
-$ user@mx3:~ Uploading /home/user/R/nzu/nzu-weekly-prices-data.csv
+$ user@mx3:~ Uploading /home/simon/R/nzu/nzu-weekly-prices-data.csv
 Uploaded 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH at 13.6 KB/s, total 36.1 KB
 
-$ user@mx3:~ Uploading /home/user/R/nzu/nzu-edited-raw-prices-data.csv
+$ user@mx3:~ Uploading /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
 Uploaded 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl at 16.3 KB/s, total 38.3 KB
 
-$ user@i6:~ Uploading /home/user/R/nzu/nzu-month-price.csv
+$ user@i6:~ Uploading /home/simon/R/nzu/nzu-month-price.csv
 Uploaded 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC at 1.2 KB/s, total 2.9 KB
 
 # to download enter "gdrive download 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC"
 
 # for subsequent updates enter; 
-gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH /home/user/R/nzu/nzu-weekly-prices-data.csv
-gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC /home/user/R/nzu/nzu-month-price.csv
-gdrive update 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl /home/user/R/nzu/nzu-edited-raw-prices-data.csv
+gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH /home/simon/R/nzu/nzu-weekly-prices-data.csv
+gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC /home/simon/R/nzu/nzu-month-price.csv
+gdrive update 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
 
 user@mx3:~
 $ gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH /home/user/R/nzu/nzu-weekly-prices-data.csv
@@ -148,7 +148,7 @@ $
 
 sessionInfo()
 R version 3.3.3 (2017-03-06)
-Platform: x86_64-pc-linux-gnu (64-bit)
+gdrive info 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC
 Running under: Debian GNU/Linux 9 (stretch)
 
 locale:
