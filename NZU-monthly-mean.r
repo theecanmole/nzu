@@ -2,6 +2,10 @@ NZU-monthly-mean (2010-2018) R code
 
 # R code to create a mean monthly time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
 
+# locate and anchor the location of the working folder
+library(here)
+set_here()
+
 # download raw prices from Github
 
 urlrawdata <- c("https://raw.githubsimoncontent.com/theecanmole/nzu/master/NZU-weekly-prices-data.csv")
@@ -12,12 +16,12 @@ download.file(urlrawdata, rawdata)
 
 # or read in raw prices data from a local folder
 
-rawdata <- read.csv("/home/simon/R/nzu/nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings='NA', dec=".", strip.white=TRUE)
+rawdata <- read.csv("nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","character"),na.strings='NA', dec=".", strip.white=TRUE)
 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	741 obs. of  3 variables:
+'data.frame':	750 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -27,7 +31,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-data.frame:	741 obs. of  4 variables:
+data.frame:	750 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -65,23 +69,23 @@ str(monthprice)
  
 # write the new monthly data to a .csv file 
 
-write.table(monthprice, file = "/home/simon/R/nzu/nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(monthprice, file = "nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
-# write the edited raw data to a .csv file 
+# write the edited tidy data to a .csv file 
 
-write.table(rawdata, file = "/home/simon/R/nzu/nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(rawdata, file = "nzu-tidy-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 # upload the csv file to the Google Drive via Gdrive (https://github.com/prasmussen/gdrive) command line utility 
-# open a xterminal window
+# open a xterminal window and change to the 'nzu' directory
 # for first ever upload enter;
-gdrive upload /home/simon/R/nzu/nzu-weekly-prices-data.csv
-gdrive upload /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
-gdrive upload /home/simon/R/nzu/nzu-month-price.csv
+gdrive upload /nzu-weekly-prices-data.csv
+gdrive upload /nzu-tidy-prices-data.csv
+gdrive upload /nzu-month-price.csv
 
-$ simon@mx3:~ Uploading /home/simon/R/nzu/nzu-weekly-prices-data.csv
+$ simon@mx3:~ Uploading /nzu/nzu-weekly-prices-data.csv
 Uploaded 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH at 13.6 KB/s, total 36.1 KB
 
-$ simon@mx3:~ Uploading /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
+$ simon@mx3:~ Uploading nzu/nzu-tidy-prices-data.csv
 Uploaded 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl at 16.3 KB/s, total 38.3 KB
 
 $ simon@i6:~ Uploading /home/simon/R/nzu/nzu-month-price.csv
@@ -90,21 +94,21 @@ Uploaded 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC at 1.2 KB/s, total 2.9 KB
 # to download enter "gdrive download 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC"
 
 # for subsequent updates enter; 
-gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH /home/simon/R/nzu/nzu-weekly-prices-data.csv
-gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC /home/simon/R/nzu/nzu-month-price.csv
-gdrive update 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
+gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH nzu-weekly-prices-data.csv
+gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC nzu-month-price.csv
+gdrive update 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl nzu-tidy-prices-data.csv
 
 simon@mx3:~
-$ gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH /home/simon/R/nzu/nzu-weekly-prices-data.csv
-Uploading /home/simon/R/nzu/nzu-weekly-prices-data.csv
+$ gdrive update 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH nzu-weekly-prices-data.csv
+Uploading nzu-weekly-prices-data.csv
 Updated 1PT7HfwDIYE44q-H29GD7Ie2UeW6Ol9ZH at 15.3 KB/s, total 44.8 KB
 simon@mx3:~
-$ gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC /home/simon/R/nzu/nzu-month-price.csv
-Uploading /home/simon/R/nzu/nzu-month-price.csv
+$ gdrive update 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC nzu-month-price.csv
+Uploading nzu-month-price.csv
 Updated 1jsYmImqbvM6WAT-o0IpeQ9mK9QV8JxZC at 1.8 KB/s, total 3.2 KB
 simon@mx3:~
-$ gdrive update 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
-Uploading /home/simon/R/nzu/nzu-edited-raw-prices-data.csv
+$ gdrive update 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl nzu-tidy-prices-data.csv
+Uploading nzu-tidy-prices-data.csv
 Updated 1zIfRvgYK-SYXi8-imGjc0Eiozx45YQjl at 24.3 KB/s, total 52.8 KB
 simon@mx3:~
 

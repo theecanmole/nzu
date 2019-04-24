@@ -4,10 +4,10 @@
 # make a short 'list' for the url
 urldata <- c("https://raw.githubusercontent.com/theecanmole/nzu/master/nzu-month-price-2010-2016.csv")
 # define the destination file name and location                 
-monthprice <-c("/home/simon/nzu-month-price.csv")
+monthprice <-c("nzu-month-price.csv")
 
 str(monthprice)
- chr "/home/simon/nzu-month-price.csv"
+ chr "nzu-month-price.csv"
  
 download.file(urldata, monthprice)
 
@@ -17,17 +17,17 @@ download.file(urldata, monthprice)
 #downloaded 2522 bytes
 
 # read in raw prices data from the .csv file in the destination folder
-monthprice <- read.csv("/home/simon/nzu-month-price.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
+monthprice <- read.csv("nzu-month-price.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	106 obs. of  3 variables:
+'data.frame':	108 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
 
 
-# create svg format chart with 16 pt text font and grid lines via 'abline'
+# create svg format chart with 16 pt text font and grid lines via 'abline' for uploading to wikimedia commons
 svg(filename="NZUprice-720by540grid.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,25),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
@@ -42,6 +42,11 @@ mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit Prices 2010 -
 mtext(side=2,cex=0.75, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
+null device 
+          1 
+# upload to wikimedia commons 
+
+# these scripts below are just slight variations of the chart
 
 # create svg format chart with 16 pt text font and grid lines via 'grid'
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
