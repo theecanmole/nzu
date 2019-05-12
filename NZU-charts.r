@@ -30,7 +30,7 @@ str(monthprice)
 # create svg format chart with 16 pt text font and grid lines via 'abline' for uploading to wikimedia commons
 svg(filename="NZUprice-720by540grid.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,25),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(monthprice,ylim=c(0,25),tck=0.01,axes=FALSE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
 axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2019), labels = c(2011:2019), tick = TRUE)
 box()
 abline(v=c(2011:2019),col="lightgray",lwd=0.5,lty=2)
@@ -42,8 +42,9 @@ mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit Prices 2010 -
 mtext(side=2,cex=0.75, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
-null device 
-          1 
+RKGraphicsDevice 
+               2 
+         
 # upload to wikimedia commons 
 
 # these scripts below are just slight variations of the chart
@@ -51,11 +52,11 @@ null device
 # create svg format chart with 16 pt text font and grid lines via 'grid'
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,25),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(monthprice,ylim=c(0,25),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2019")) )
+mtext(side=3,cex=1.4, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2019")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
