@@ -30,7 +30,7 @@ str(monthprice)
 
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,32),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,35),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=1,line=-1.1,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
