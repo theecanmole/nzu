@@ -46,7 +46,7 @@ dev.off()
 # create svg format chart with 16 pt text font and grid lines via 'abline' for uploading to wikimedia commons
 svg(filename="NZUprice-720by540grid.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice,ylim=c(0,30),tck=0.01,axes=TRUE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(monthprice,ylim=c(0,35),tck=0.01,axes=TRUE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
 axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2019), labels = c(2011:2020), tick = TRUE)
 box()
 abline(v=c(2011:2020),col="lightgray",lwd=0.5,lty=2)
