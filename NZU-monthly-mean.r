@@ -7,8 +7,8 @@ library(here)
 
 set_here()
 getwd()
-[1] "/home/simon/R/nzu"
-# or setwd("home/simon/R/nzu")
+[1] "/home/user/R/nzu"
+# or setwd("home/user/R/nzu")
 # download raw prices from Github
 
 urlrawdata <- c("https://raw.githubsimoncontent.com/theecanmole/nzu/master/NZU-weekly-prices-data.csv")
