@@ -21,7 +21,7 @@ monthprice <- read.csv("nzu-month-price.csv", skip=0, header=TRUE, sep=",", colC
 
 # examine dataframe
 str(monthprice)
-'data.frame':	128 obs. of  3 variables:
+'data.frame':	143 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
@@ -33,7 +33,7 @@ par(mar=c(2.7,2.7,1,1)+0.1)
 plot(monthprice[["decimal"]],monthprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=1,line=-1.1,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
 mtext(side=3,cex=1.5, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2022")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
@@ -50,7 +50,7 @@ plot(monthprice[["month"]],monthprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, la
 plot(monthprice,ylim=c(0,80),tck=0.01,axes=TRUE,ann=FALSE, las=1,col=2,lwd=2,type='l',lty=1)
 axis(side=1, tck=0.01, las=0, lwd = 1, at = c(2011:2021), labels = c(2011:2021), tick = TRUE)
 box()
-abline(v=c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020),col="lightgray",lwd=0.5,lty=2)
+abline(v=c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021),col="lightgray",lwd=0.5,lty=2)
 abline(h=c(10,20,30,40,50,60,70,80),col="lightgray",lwd=0.5,lty=2)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 axis(side=2, tck=0.01, las=0,tick=TRUE,labels = TRUE)
@@ -66,7 +66,7 @@ RKGraphicsDevice
 ------------------
 # plot the more detailed 'weekly' data
 str(rawdata)
-'data.frame':	1311 obs. of  4 variables:
+'data.frame':	1328 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -74,10 +74,10 @@ str(rawdata)
 
 svg(filename="NZUpricesweekly-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(rawdata[["date"]],rawdata[["price"]],ylim=c(0,75),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(rawdata[["date"]],rawdata[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU weekly prices' https://github.com/theecanmole/nzu")
 mtext(side=3,cex=1.3, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2022")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
@@ -88,10 +88,10 @@ abline(h=c(25,40),col="lightgray",lwd=0.5,lty=2)
 # create svg format chart with smaller text font =14
 svg(filename="NZUprice-720by540f14.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,80),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(monthprice[["decimal"]],monthprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU weekly prices' https://github.com/theecanmole/nzu")
 mtext(side=3,cex=1.4, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2022")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
