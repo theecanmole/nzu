@@ -24,7 +24,7 @@ rawdata <- read.csv("nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	1341 obs. of  3 variables:
+'data.frame':	1356 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -34,7 +34,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-'data.frame':	1341 obs. of  4 variables:
+'data.frame':	1356 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -45,14 +45,14 @@ monthprice<-aggregate(price ~ month, rawdata, mean)
 
 # examine dataframe
 str(monthprice)
-'data.frame':	143 obs. of  2 variables:
+'data.frame':	144 obs. of  2 variables:
  $ month: Factor w/ 138 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ...
  
 # create a vector that is the number of months and the number of rows in 'monthprice' 
 lengthmonthprice <- length(monthprice[["month"]])
 lengthmonthprice
-[1] 143
+[1] 144
 
 # replace month factor with mid-month 15th of month date-formatted object 
 monthprice[["month"]] = seq(as.Date('2010-05-15'), by = 'months', length = nrow(monthprice)) 
@@ -65,7 +65,7 @@ monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
 
 # examine dataframe - again
 str(monthprice)
-'data.frame':	143 obs. of  3 variables:
+'data.frame':	144 obs. of  3 variables:
  $ month  : Date, format: "2010-05-15" "2010-06-15" ...
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
