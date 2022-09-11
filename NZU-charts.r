@@ -66,13 +66,13 @@ RKGraphicsDevice
 ------------------
 # plot the more detailed 'weekly' data
 str(rawdata)
-'data.frame':	1423 obs. of  4 variables:
+'data.frame':	1450 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
  $ month    : Factor w/ 90 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
 
-svg(filename="NZUpricesweekly-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+svg(filename="NZUpricesweekly-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
 plot(rawdata[["date"]],rawdata[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
