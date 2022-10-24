@@ -26,7 +26,7 @@ str(monthprice)
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
 
-# create svg format chart with 16 pt text font and grid lines via 'grid'
+# create svg format chart with 14 pt text font and grid lines via 'grid'
 
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
@@ -66,7 +66,7 @@ RKGraphicsDevice
 ------------------
 # plot the more detailed 'weekly' data
 str(rawdata)
-'data.frame':	1450 obs. of  4 variables:
+'data.frame':	1462 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
