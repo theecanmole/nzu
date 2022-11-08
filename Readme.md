@@ -22,13 +22,15 @@ Data preparation was performed with the [R programming language](https://www.r-p
 
 The raw price data has been manually 'web-scraped' and recorded in the file [NZU-weekly-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data.csv). 
 
-The raw data is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1sg_WvZFV1lasiv54f5GGW7nV5mMI70vCPpIViUVzN9k/).
+Run the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) from a directory to download and process the raw data into a mean monthly time series. This is then written to a file [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv).
 
-The edited price data, that includes the addition of a month column, is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1X1hX6trIrsp3Uou69osCmovWpLqcIiPZE5T2ZN5XIHw/).
+#### Data files at Google sheets
 
-Run the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) from a directory to download and process the raw data into a mean monthly time series. This is then written to a file [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv). 
+1. The raw data: [nzu-weekly-prices-data.csv](https://docs.google.com/spreadsheets/d/1sg_WvZFV1lasiv54f5GGW7nV5mMI70vCPpIViUVzN9k/).
 
-The mean monthly price data is also available as a [Google sheet](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
+2. The edited price data with the addition of a month column: [nzu-edited-raw-prices-data.csv](https://docs.google.com/spreadsheets/d/1X1hX6trIrsp3Uou69osCmovWpLqcIiPZE5T2ZN5XIHw/).
+
+3. The mean monthly price data: [nzu-month-price.csv](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
 
 ### License
 
