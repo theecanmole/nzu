@@ -10,6 +10,8 @@ New Zealand has had an emissions trading scheme since 2009.  Although private se
 
 ![New Zealand spot emission unit prices 2010 - 2022](NZUpricesweekly-720by540.svg) 
 
+![New Zealand mean weekly emission unit prices 2010 - 2022](NZU-weekly-mean-price-720by540.svg)]
+
 There is a chart of the data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
 
 ### Data Preparation
@@ -32,6 +34,8 @@ Run the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/ma
 
 3. The mean monthly price data: [nzu-month-price.csv](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
 
+4. The mean weekly price data: [weeklymeanprice.csv](https://docs.google.com/spreadsheets/d/1ofEIPmTlFE12gXU4tWVbHv0-bG0IhIL2jGy4qXM_ugI/edit#gid=1860633944).
+
 ### License
 
 #### ODC-PDDL-1.0
@@ -47,11 +51,13 @@ This data package and these datasets and the R scripts are made available under 
 
 3. [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r)     (R script file of code to process raw price data to monthly mean price)
 
-4. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the output data, the processed monthly mean of the raw price data)
+4. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the monthly mean of the raw price data)
 
-5. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r) (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
+5. [weeklymeanprice.csv](https://github.com/theecanmole/nzu/raw/master/weeklymeanprice.csv) (the weekly mean of the raw price data)
 
-6. [Licence.txt](https://github.com/theecanmole/nzu/blob/master/Licence.txt) (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
+6. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r) (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
+
+7. [Licence.txt](https://github.com/theecanmole/nzu/blob/master/Licence.txt) (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
 
 #### Citation
 

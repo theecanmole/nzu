@@ -76,35 +76,31 @@ write.table(monthprice, file = "nzu-month-price.csv", sep = ",", col.names = TRU
 
 write.table(rawdata, file = "nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
+# add week variable/factor to data
+rawdata$week <- as.factor(format(rawdata$date, "%Y-%m-%U"))
+
 # create new dataframe of weekly mean price 
 weeklymeanprice <- aggregate(price ~ week, rawdata, mean) 
+
 str(weeklymeanprice)
 'data.frame':	600 obs. of  2 variables:
  $ week : Factor w/ 600 levels "2010-05-19","2010-05-20",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.8 17.5 17.5 17 17.8 ...  
 
-head(weeklymeanprice)
+head(weeklymeanprice,2)
         week price
 1 2010-05-19 17.75
 2 2010-05-20 17.50
-3 2010-05-21 17.50
-4 2010-06-23 17.00
-5 2010-06-25 17.75
-6 2010-06-26 17.50 
 
-# replace week factor with week date-formatted object 
+# add   week date-formatted object 
 weeklymeanprice[["weekended"]] = seq(as.Date('2010-05-19'), by = 'weeks', length = nrow(weeklymeanprice))  
-head(weeklymeanprice)
+head(weeklymeanprice,2)
         week price  weekended
 1 2010-05-19 17.75 2010-05-19
 2 2010-05-20 17.50 2010-05-26
-3 2010-05-21 17.50 2010-06-02
-4 2010-06-23 17.00 2010-06-09
-5 2010-06-25 17.75 2010-06-16
-6 2010-06-26 17.50 2010-06-23
 
 str(weeklymeanprice)
-'data.frame':	600 obs. of  3 variables:
+'data.frame':	602 obs. of  3 variables:
  $ week     : Factor w/ 600 levels "2010-05-19","2010-05-20",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ weekended: Date, format: "2010-05-19" "2010-05-26" ...
@@ -115,7 +111,7 @@ plot(weeklymeanprice[["weekended"]],weeklymeanprice[["price"]],tck=0.01,axes=TRU
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.5, line=-2.2,expression(paste("New Zealand Weekly Unit Prices 2010 - 2022")) )
+mtext(side=3,cex=1.5, line=-2.2,expression(paste("New Zealand Mean Weekly Unit Prices 2010 - 2022")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
@@ -130,8 +126,8 @@ mtext(side=3,cex=1.5, line=-2.2,expression(paste("New Zealand Weekly Unit Prices
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
-# write the new monthly data to a .csv file 
 
+# write the new monthly data to a .csv file 
 write.table(weeklymeanprice, file = "weeklymeanprice.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 weeklymeanprice <- read.csv(file = "weeklymeanprice.csv")
 
