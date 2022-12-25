@@ -4,8 +4,9 @@ NZU-monthly-mean  R code
 
 # locate and anchor the location of the working folder
 library(here)
-
 set_here()
+# load program aweek
+library(aweek)
 getwd()
 [1] "/home/user/R/nzu"
 # or setwd("home/user/R/nzu")
@@ -22,7 +23,7 @@ rawdata <- read.csv("nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	1516 obs. of  3 variables:
+'data.frame':	1521 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -32,7 +33,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-'data.frame':	1516 obs. of  4 variables:
+'data.frame':	1521 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -44,7 +45,7 @@ monthprice<-aggregate(price ~ month, rawdata, mean)
 # examine dataframe
 str(monthprice)
 'data.frame':	152 obs. of  2 variables:
- $ month: Factor w/ 149 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ month: Factor w/ 152 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ...
  
 # create a vector that is the number of months and the number of rows in 'monthprice' 
@@ -68,46 +69,91 @@ str(monthprice)
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
 
-# write the new monthly data to a .csv file 
+ # convert dates to weeks 
+rawdata$week <- as.aweek(rawdata$date) 
+rawdata$week
+# remove week day part from aweek week and stay in aweek format
+rawdata$week <- trunc(rawdata$week) 
+
+str(rawdata)
+'data.frame':	1521 obs. of  5 variables:
+ $ date     : Date, format: "2010-05-14" "2010-05-21" ...
+ $ price    : num  17.8 17.5 17.5 17 17.8 ...
+ $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
+ $ month    : Factor w/ 152 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
+ $ week     :Class 'aweek'  atomic [1:1521] 2010-W19-5 2010-W20-5 2010-W21-6 2010-W23-5 ...
+  .. ..- attr(*, "week_start")= int 1 
+  
+# create new dataframe of weekly mean price using 'aweek' value 
+weeklyprice <- aggregate(price ~ week, rawdata, mean)
+
+# round mean prices to whole cents
+weeklyprice[["price"]] = round(weeklyprice[["price"]], digits = 2)
+
+str(weeklyprice)
+'data.frame':	568 obs. of  2 variables:
+ $ week :Class 'aweek'  atomic [1:568] 2010-W19 2010-W20 2010-W21 2010-W23 ...
+  .. ..- attr(*, "week_start")= int 1
+ $ price: num  17.8 17.5 17.5 17 17.8 ...  
+
+# convert and add aweek week to date format date 
+weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])
+  
+  
+# write the mean monthly price dataframe to a .csv file 
 
 write.table(monthprice, file = "nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
-# write the edited tidy data to a .csv file 
+# write the edited raw prices dataframe to a .csv file 
 
 write.table(rawdata, file = "nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
-# add week variable/factor to data
-rawdata$week <- as.factor(format(rawdata$date, "%Y-%m-%U"))
+# write the mean price per week dataframe to a .csv file 
 
-# create new dataframe of weekly mean price 
-weeklymeanprice <- aggregate(price ~ week, rawdata, mean) 
+write.table(weeklyprice, file = "weeklymeanprice.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
-str(weeklymeanprice)
-'data.frame':	609 obs. of  2 variables:
- $ week : Factor w/ 600 levels "2010-05-19","2010-05-20",..: 1 2 3 4 5 6 7 8 9 10 ...
- $ price: num  17.8 17.5 17.5 17 17.8 ...  
+# charts
 
-head(weeklymeanprice,2)
-        week price
-1 2010-05-19 17.75
-2 2010-05-20 17.50
+# create svg format chart of mean monthly price with 14 pt text font and grid lines via 'grid'
 
-# add   week date-formatted object 
-weeklymeanprice[["weekended"]] = seq(as.Date('2010-05-19'), by = 'weeks', length = nrow(weeklymeanprice))  
-head(weeklymeanprice,2)
-        week price  weekended
-1 2010-05-19 17.75 2010-05-19
-2 2010-05-20 17.50 2010-05-26
+svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(monthprice[["decimal"]],monthprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+grid(col="darkgray",lwd=1)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit monthly mean prices 2010 - 2022")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
 
-str(weeklymeanprice)
-'data.frame':	609 obs. of  3 variables:
- $ week     : Factor w/ 600 levels "2010-05-19","2010-05-20",..: 1 2 3 4 5 6 7 8 9 10 ...
- $ price    : num  17.8 17.5 17.5 17 17.8 ...
- $ weekended: Date, format: "2010-05-19" "2010-05-26" ...
- tail(weeklymeanprice,2)
-          week  price  weekended
-608 2022-12-49 81.800 2022-01-05
-609 2022-12-50 81.624 2022-01-12 
+# create svg format chart of all spot (secondary) prices with 14 pt text font and grid lines via 'grid'
+
+svg(filename="NZU-spot-prices-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(rawdata[["date"]],rawdata[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+grid(col="darkgray",lwd=1)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+mtext(side=1,cex=0.9,line=-1.3,"Data: 'NZU weekly prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit spot prices 2010 - 2022")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
+
+# create svg format chart of all spot (secondary) prices with 14 pt text font and grid lines via 'grid' 
+
+svg(filename="NZU-mean-weekly-prices-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(weeklyprice$date,weeklyprice$price,tck=0.01,axes=T,ann=T, las=1,col="red",lwd=1,type='l',lty=1)
+grid(col="darkgray",lwd=1)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit mean weekly spot prices 2010 2022")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
+
+
 
 svg(filename="NZU-weekly-mean-price-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
@@ -120,20 +166,11 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
-png("NZU-weekly-mean-price2-560by420-v1.png", bg="white", width=560, height=420,pointsize = 12)
-par(mar=c(2.7,2.7,1,1)+0.1)
-plot(weeklymeanprice[["weekended"]],weeklymeanprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col="red",lwd=2,type='l',lty=1)
-grid(col="darkgray",lwd=1)
-axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU prices' https://github.com/theecanmole/nzu")
-mtext(side=3,cex=1.5, line=-2.2,expression(paste("New Zealand Weekly Unit Prices 2010 - 2022")) )
-mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
-mtext(side=4,cex=0.75, line=0.05,R.version.string)
-dev.off()
 
-# write the new monthly data to a .csv file 
-write.table(weeklymeanprice, file = "weeklymeanprice.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
-weeklymeanprice <- read.csv(file = "weeklymeanprice.csv")
+
+
+
+
 
 
 sessionInfo()
