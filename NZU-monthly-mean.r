@@ -20,7 +20,7 @@ rawdata <- read.csv("nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	1628 obs. of  3 variables:
+'data.frame':	1642 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -30,7 +30,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-'data.frame':	1628 obs. of  4 variables:
+'data.frame':	1642 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -66,23 +66,24 @@ str(monthprice)
  $ price  : num  17.6 17.4 18.1 18.4 20.2 ...
  $ decimal: num  2010 2010 2011 2011 2011 ...
 
- # add week column to rawdata, convert dates to weeks with 'aweek' 
+# add week column to rawdata, convert dates to weeks with 'aweek' 
 rawdata$week <- as.aweek(rawdata$date) 
+# check last 6 weeks
 tail(rawdata$week)
 <aweek start: Monday>
-[1] "2023-W26-4" "2023-W26-5" "2023-W27-1" "2023-W27-2" "2023-W27-3"
-[6] "2023-W27-5"
+[1] "2023-W29-5" "2023-W30-1" "2023-W30-2" "2023-W30-3" "2023-W30-4"
+[6] "2023-W30-5"
 
 # remove week day part from aweek week and stay in aweek format
 rawdata$week <- trunc(rawdata$week) 
 
 str(rawdata)
-'data.frame':	1628 obs. of  5 variables:
+'data.frame':	1642 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
  $ month    : Factor w/ 159 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
- $ week     :Class 'aweek'  atomic [1:1628] 2010-W19 2010-W20 2010-W21 2010-W23 ...
+ $ week     :Class 'aweek'  atomic [1:1642] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
   
 # create new dataframe of weekly mean price using 'aweek' variable 
@@ -92,8 +93,8 @@ weeklyprice <- aggregate(price ~ week, rawdata, mean)
 weeklyprice[["price"]] = round(weeklyprice[["price"]], digits = 2)
 
 str(weeklyprice)
-'data.frame':	592 obs. of  2 variables:
- $ week :Class 'aweek'  atomic [1:592] 2010-W19 2010-W20 2010-W21 2010-W23 ...
+'data.frame':	595 obs. of  2 variables:
+ $ week :Class 'aweek'  atomic [1:595] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
  $ price: num  17.8 17.5 17.5 17 17.8 ...
 
@@ -101,7 +102,7 @@ str(weeklyprice)
 weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])
 
 str(weeklyprice)
-'data.frame':	592 obs. of  3 variables:
+'data.frame':	595 obs. of  3 variables:
  $ week :Class 'aweek'  atomic [1:592] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
  $ price: num  17.8 17.5 17.5 17 17.8 ...
@@ -171,13 +172,13 @@ locale:
  [5] LC_MONETARY=en_NZ.UTF-8       LC_MESSAGES=en_NZ.UTF-8      
  [7] LC_PAPER=en_NZ.UTF-8          LC_NAME=en_NZ.UTF-8          
  [9] LC_ADDRESS=en_NZ.UTF-8        LC_TELEPHONE=en_NZ.UTF-8     
-[11] L  graphics  grDevices utils     datasets  methods   base     
+[11] LC_MEASUREMENT=en_NZ.UTF-8    LC_IDENTIFICATION=en_NZ.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
 [1] aweek_1.0.3  rkward_0.6.5
 
 loaded via a namespace (and not attached):
-[1] tools_3.3.3C_MEASUREMENT=en_NZ.UTF-8    LC_IDENTIFICATION=en_NZ.UTF-8
-
-attached base packages:
-[1] stats
+[1] tools_3.3.3

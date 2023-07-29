@@ -34,7 +34,7 @@ Run the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/ma
 
 3. The mean monthly price data: [nzu-month-price.csv](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
 
-4. The mean weekly price data: [weeklymeanprice.csv](https://docs.google.com/spreadsheets/d/1ofEIPmTlFE12gXU4tWVbHv0-bG0IhIL2jGy4qXM_ugI/edit#gid=1860633944).
+4. The mean weekly price data: [weeklymeanprice.csv](https://docs.google.com/spreadsheets/d/1ofEIPmTlFE12gXU4tWVbHv0-bG0IhIL2jGy4qXM_ugI/).
 
 ### License
 
