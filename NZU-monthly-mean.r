@@ -20,7 +20,7 @@ rawdata <- read.csv("nzu-weekly-prices-data.csv", skip=0, header=TRUE, sep=",", 
 # examine dataframe
 
 str(rawdata)
-'data.frame':	1700 obs. of  3 variables:
+'data.frame':	1704 obs. of  3 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -30,7 +30,7 @@ rawdata$month <- as.factor(format(rawdata$date, "%Y-%m"))
 
 # examine dataframe
 str(rawdata)
-'data.frame':	1700 obs. of  4 variables:
+'data.frame':	1704 obs. of  4 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -71,14 +71,14 @@ rawdata$week <- as.aweek(rawdata$date)
 # check last 6 weeks
 tail(rawdata$week)
 <aweek start: Monday>
-[1] "2023-W41-5" "2023-W42-1" "2023-W42-2" "2023-W42-3" "2023-W42-4"
-[6] "2023-W42-5"
+[1] "2023-W42-4" "2023-W42-5" "2023-W43-2" "2023-W43-3" "2023-W43-4"
+[6] "2023-W43-5"
 
 # remove week day part from aweek week and stay in aweek format
 rawdata$week <- trunc(rawdata$week) 
 
 str(rawdata)
-'data.frame':	1700 obs. of  5 variables:
+'data.frame':	1704 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -93,7 +93,7 @@ weeklyprice <- aggregate(price ~ week, rawdata, mean)
 weeklyprice[["price"]] = round(weeklyprice[["price"]], digits = 2)
 
 str(weeklyprice)
-'data.frame':	607 obs. of  2 variables:
+'data.frame':	608 obs. of  2 variables:
  $ week :Class 'aweek'  atomic [1:605] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
  $ price: num  17.8 17.5 17.5 17 17.8 ...
@@ -102,7 +102,7 @@ str(weeklyprice)
 weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])
 
 str(weeklyprice)
-'data.frame':	607 obs. of  3 variables:
+'data.frame':	608 obs. of  3 variables:
  $ week :Class 'aweek'  atomic [1:604] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
  $ price: num  17.8 17.5 17.5 17 17.8 ...
