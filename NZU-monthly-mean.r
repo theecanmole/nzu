@@ -63,7 +63,6 @@ str(data)
  $ week     :Class 'aweek'  atomic [1:1699] 2010-W19-5 2010-W20-5 2010-W21-6 2010-W23-5 ...
   .. ..- attr(*, "week_start")= int 1 
   
-
 # create new dataframe of monthly mean price 
 monthprice<-aggregate(price ~ month, data, mean)
 
@@ -133,11 +132,15 @@ str(weeklyprice)
 # subset the spot prices only from data 
 spotprice <- data[,c(1,2)] 
  
+# write the edited raw prices and urls to a .csv file 
+
+write.table(data, file = "nzu-edited-raw-prices-data.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+
 # write the mean monthly price dataframe to a .csv file 
 
 write.table(monthprice, file = "nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
-# write the mean price per week dataframe to a .csv file 
+# write the mean week price dataframe to a .csv file 
 
 write.table(weeklyprice, file = "weeklymeanprice.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 

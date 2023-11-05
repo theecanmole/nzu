@@ -22,19 +22,19 @@ Data preparation was performed with the [R programming language](https://www.r-p
 
 #### Processing
 
-The raw price data has been manually 'web-scraped' and recorded in the file [NZU-weekly-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data.csv). 
+The price data has been web-scraped with the Python script 'api.py' and recorded in the file [nzu-edited-raw-prices-data](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data). 
 
-Run the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) from a directory to download and process the raw data into a mean monthly time series. This is then written to a file [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv).
+Run the commands in the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) from a directory to download and process the raw data into a mean monthly time series, a mean weekly time series and an irregular time series of secondary market spot prices. These dataframes are then written to .csv files.
 
 #### Data files at Google sheets
 
-1. The raw data: [nzu-weekly-prices-data.csv](https://docs.google.com/spreadsheets/d/1sg_WvZFV1lasiv54f5GGW7nV5mMI70vCPpIViUVzN9k/).
+1. The web-scraped edited price data: [nzu-edited-raw-prices-data.csv](https://docs.google.com/spreadsheets/d/1X1hX6trIrsp3Uou69osCmovWpLqcIiPZE5T2ZN5XIHw/).
 
-2. The edited price data with the addition of a month column: [nzu-edited-raw-prices-data.csv](https://docs.google.com/spreadsheets/d/1X1hX6trIrsp3Uou69osCmovWpLqcIiPZE5T2ZN5XIHw/).
+2. The mean monthly price data: [nzu-month-price.csv](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
 
-3. The mean monthly price data: [nzu-month-price.csv](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
+3. The mean weekly price data: [weeklymeanprice.csv](https://docs.google.com/spreadsheets/d/1ofEIPmTlFE12gXU4tWVbHv0-bG0IhIL2jGy4qXM_ugI/).
 
-4. The mean weekly price data: [weeklymeanprice.csv](https://docs.google.com/spreadsheets/d/1ofEIPmTlFE12gXU4tWVbHv0-bG0IhIL2jGy4qXM_ugI/).
+5. The spot prices: [spotprices.csv](https://docs.google.com/spreadsheets/d/1sg_WvZFV1lasiv54f5GGW7nV5mMI70vCPpIViUVzN9k/edit#gid=1526631005).
 
 ### License
 
@@ -45,15 +45,15 @@ This data package and these datasets and the R scripts are made available under 
 
 #### Index of files
 
-1. [nzu-weekly-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-weekly-prices-data.csv) (web-scraped raw price data, irregular dates, price and url reference)
+1. [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) (R script file of code to process raw price data to monthly mean price)
 
-2. [nzu-edited-raw-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data.csv) (raw price data, irregular dates, with added month column, price and url reference)
+2. [nzu-edited-raw-prices-data.csv](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data.csv) (price data, irregular dates, with week and month factor columns, prices and url references)
 
-3. [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r)     (R script file of code to process raw price data to monthly mean price)
+3. [spotprices.csv](https://github.com/theecanmole/nzu/raw/master/spotprices.csv) (spot prices data, irregular dates and prices)
 
-4. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the monthly mean of the raw price data)
+4. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the monthly means of the spot price data)
 
-5. [weeklymeanprice.csv](https://github.com/theecanmole/nzu/raw/master/weeklymeanprice.csv) (the weekly mean of the raw price data)
+5. [weeklymeanprice.csv](https://github.com/theecanmole/nzu/raw/master/weeklymeanprice.csv) (the weekly means of the spot price data)
 
 6. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r) (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
 
