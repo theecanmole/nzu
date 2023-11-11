@@ -17,10 +17,10 @@ download.file(urlrawdata, rawdata)
 # or read in raw prices data from a local folder specifying header status as false
 data <- read.csv("nzu-edited-raw-prices-data.csv",header=FALSE,stringsAsFactors = FALSE)
 dim(data)
-[1] 1700    5
+[1] 1705    5
 # examine dataframe
 str(data)
-'data.frame':	1700 obs. of  5 variables:
+'data.frame':	1705 obs. of  5 variables:
  $ V1: chr  "2010/05/14" "2010/05/21" "2010/05/29" "2010/06/11" ...
  $ V2: chr  "17.75" "17.5" "17.5" "17" ...
  $ V3: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -28,8 +28,8 @@ str(data)
  $ V5: chr  "2010/W19" "2010/W20" "2010/W21" "2010/W23" ...
 
 # look at the last row again
-data[1700,]
-1700 date price reference month week
+data[nrow(data),]
+1705 date price reference month week
 tail(data,1)
        V1    V2        V3    V4   V5
 1700 date price reference month week
@@ -50,12 +50,10 @@ data$price <- as.numeric(data$price)
 data$month <- as.factor(format(data$date, "%Y-%m"))
 # make aweek vector from date format column and overwrite contents of week column  
 data$week <- as.aweek(data$date) 
-# add month variable/factor to data
-data$month <- as.factor(format(data$date, "%Y-%m"))
 
 # examine dataframe
 str(data)
-'data.frame':	1699 obs. of  5 variables:
+'data.frame':	1705 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -84,9 +82,6 @@ colnames(monthprice) <- c("date","price")
 # round mean prices to whole cents
 monthprice[["price"]] = round(monthprice[["price"]], digits = 2)
 
-# create 'decimal' year vector as an alternative to the month vector, e.g. May 2010 = 2010.375, Jan 2011 = 2011.04167
-# monthprice[["decimal"]] = seq(2010.375, by = 1/12, length = nrow(monthprice))
-
 # examine dataframe - again
 str(monthprice)
 'data.frame':	163 obs. of  2 variables:
@@ -104,7 +99,7 @@ data$week <- trunc(data$week)
 table(data$week) 
 
 str(data)
-'data.frame':	1699 obs. of  5 variables:
+'data.frame':	1704 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -123,7 +118,7 @@ weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])
 # change order of columns
 weeklyprice <- weeklyprice[,c(3,2,1)]
 str(weeklyprice)
-'data.frame':	609 obs. of  3 variables:
+'data.frame':	610 obs. of  3 variables:
  $ date : Date, format: "2010-05-10" "2010-05-17" ...
  $ price: num  17.8 17.5 17.5 17 17.8 ...
  $ week :Class 'aweek'  atomic [1:609] 2010-W19 2010-W20 2010-W21 2010-W23 ...
