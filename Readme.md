@@ -12,7 +12,7 @@ New Zealand has had an emissions trading scheme since 2009.  Although private se
 
 ![New Zealand mean weekly emission unit prices 2010 - 2022](NZU-mean-weekly-prices-720by540.svg)
 
-There is a chart of the data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
+There is a chart of the monthly data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
 
 ### Data Preparation
 

@@ -143,12 +143,17 @@ write.table(weeklyprice, file = "weeklymeanprice.csv", sep = ",", col.names = TR
 write.table(spotprice, file = "spotprices.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE) 
 
 # charts
+# read in monthly mean prices data (if needed)
+monthprice <- read.csv("nzu-month-price.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
+
+# make a time series out of mean NZU price per month
+mpts <- ts(data = monthprice[["price"]], start =c(2010, 5), deltat = 1/12) 
 
 # create svg format chart of mean monthly price with 14 pt text font and grid lines via 'grid'
 
 svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["date"]],monthprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(mpts,tck=0.01,axes=TRUE,ann=TRUE, las=1,col="#ED1A3B",lwd=2,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
