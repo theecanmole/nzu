@@ -1,7 +1,7 @@
 NZU-monthly-mean  R code
 
 # R code to create a mean monthly time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
-
+# Don't forget to do a find and replace of "-" with "/" in nzu-edited-raw-prices-data.csv 
 # in an xterminal run "python api.py" to webscrape the NZU prices and save to the csv file "nzu-edited-raw-prices-data.csv"
 # load program aweek
 library(aweek)
@@ -17,10 +17,10 @@ download.file(urlrawdata, rawdata)
 # or read in raw prices data from a local folder specifying header status as false
 data <- read.csv("nzu-edited-raw-prices-data.csv",header=FALSE,stringsAsFactors = FALSE)
 dim(data)
-[1] 1705    5
+[1] 1710    5
 # examine dataframe
 str(data)
-'data.frame':	1705 obs. of  5 variables:
+'data.frame':	1710 obs. of  5 variables:
  $ V1: chr  "2010/05/14" "2010/05/21" "2010/05/29" "2010/06/11" ...
  $ V2: chr  "17.75" "17.5" "17.5" "17" ...
  $ V3: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -29,10 +29,10 @@ str(data)
 
 # look at the last row again
 data[nrow(data),]
-1705 date price reference month week
+1710 date price reference month week
 tail(data,1)
        V1    V2        V3    V4   V5
-1700 date price reference month week
+1710 date price reference month week
 # converting the last row to a character vector
 as.character(tail(data,1))
 [1] "date"      "price"     "reference" "month"     "week"   
@@ -41,7 +41,7 @@ colnames(data) <- as.character(tail(data,1))
 
 colnames(data) 
 [1] "date"      "price"     "reference" "month"     "week"  
-# delete last row 1696 - the old header names
+# delete last row 1710 - the old header names
 data <- data[-nrow(data),] 
 # change formats of date column and price column
 data$date <- as.Date(data$date)
@@ -53,7 +53,7 @@ data$week <- as.aweek(data$date)
 
 # examine dataframe
 str(data)
-'data.frame':	1705 obs. of  5 variables:
+'data.frame':	1709 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -67,7 +67,7 @@ monthprice<-aggregate(price ~ month, data, mean)
 # examine dataframe
 str(monthprice)
 'data.frame':	163 obs. of  2 variables:
- $ month: Factor w/ 162 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ month: Factor w/ 163 levels "2010-05","2010-06",..: 1 2 3 4 5 6 7 8 9 10 ...
  $ price: num  17.6 17.4 18.1 18.4 20.2 ...
  
 # create a vector that is the number of months and the number of rows in 'monthprice' 
@@ -91,23 +91,22 @@ str(monthprice)
 # check last 6 weeks
 tail(data$week)
 <aweek start: Monday>
-[1] "2023-W43-5" "2023-W44-1" "2023-W44-2" "2023-W44-3" "2023-W44-4"
-[6] "2023-W44-5"
-
+[1] "2023-W45-5" "2023-W46-1" "2023-W46-2" "2023-W46-3" "2023-W46-4"
+[6] "2023-W46-5"
 # remove week day part from aweek week and stay in aweek format
 data$week <- trunc(data$week) 
 table(data$week) 
 
 str(data)
-'data.frame':	1704 obs. of  5 variables:
+'data.frame':	1709 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
- $ month    : Factor w/ 162 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
- $ week     :Class 'aweek'  atomic [1:1691] 2010-W19 2010-W20 2010-W21 2010-W23 ...
+ $ month    : Factor w/ 163 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
+ $ week     :Class 'aweek'  atomic [1:1709] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
   
-# create new dataframe of weekly mean price using 'aweek' variable 
+# create new dataframe of weekly mean price based on 'aweek' variable 
 weeklyprice <- aggregate(price ~ week, data, mean)
 
 # round mean prices to whole cents
@@ -118,13 +117,13 @@ weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])
 # change order of columns
 weeklyprice <- weeklyprice[,c(3,2,1)]
 str(weeklyprice)
-'data.frame':	610 obs. of  3 variables:
+'data.frame':	611 obs. of  3 variables:
  $ date : Date, format: "2010-05-10" "2010-05-17" ...
  $ price: num  17.8 17.5 17.5 17 17.8 ...
- $ week :Class 'aweek'  atomic [1:609] 2010-W19 2010-W20 2010-W21 2010-W23 ...
+ $ week :Class 'aweek'  atomic [1:611] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
 
-# subset the spot prices only from data 
+# subset out the spot prices only from data 
 spotprice <- data[,c(1,2)] 
  
 # write the edited raw prices and urls to a .csv file 
