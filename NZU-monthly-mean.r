@@ -1,7 +1,9 @@
 NZU-monthly-mean  R code
 
 # R code to create a mean monthly time series vector of prices of the New Zealand Emission Unit (NZU) from raw data of irregular prices webscraped from various web sources. 
+
 # Don't forget to do a find and replace of "-" with "/" in nzu-edited-raw-prices-data.csv 
+
 # in an xterminal run "python api.py" to webscrape the NZU prices and save to the csv file "nzu-edited-raw-prices-data.csv"
 
 getwd()
@@ -16,10 +18,10 @@ download.file(urlrawdata, rawdata)
 # or read in raw prices data from a local folder specifying header status as false
 data <- read.csv("nzu-edited-raw-prices-data.csv",header=FALSE,stringsAsFactors = FALSE)
 dim(data)
-[1] 1720    5
+[1] 1725    5
 # examine dataframe
 str(data)
-'data.frame':	1715 obs. of  5 variables:
+'data.frame':	1725 obs. of  5 variables:
  $ V1: chr  "2010/05/14" "2010/05/21" "2010/05/29" "2010/06/11" ...
  $ V2: chr  "17.75" "17.5" "17.5" "17" ...
  $ V3: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -28,10 +30,10 @@ str(data)
 
 # look at the last row again
 data[nrow(data),]
-1720 date price reference month week
+1725 date price reference month week
 tail(data,1)
        V1    V2        V3    V4   V5
-1720 date price reference month week
+1725 date price reference month week
 # converting the last row to a character string
 as.character(tail(data,1))
 [1] "date"      "price"     "reference" "month"     "week"   
@@ -50,17 +52,20 @@ data$month <- as.factor(format(data$date, "%Y-%m"))
 
 # load package aweek
 library(aweek)
+
 # make aweek vector from date format column and overwrite contents of week column with week start set at Day 1 - Monday (default) 
-data$week <- as.aweek(data$date) 
+data$week <- as.aweek(data$date)
+# make aweek vector into factor
+data$weekfactor <- factor_aweek(data$week)
 
 # examine the dataframe again to check formats of columns
 str(data)
-'data.frame':	1719 obs. of  5 variables:
- $ date     : Date, format: "2010-05-14" "2010-05-21" ...
- $ price    : num  17.8 17.5 17.5 17 17.8 ...
- $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
- $ month    : Factor w/ 164 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
- $ week     :Class 'aweek'  atomic [1:1714] 2010-W19-5 2010-W20-5 2010-W21-6 2010-W23-5 ...
+'data.frame':	1724 obs. of  6 variables:
+ $ date      : Date, format: "2010-05-14" "2010-05-21" ...
+ $ price     : num  17.8 17.5 17.5 17 17.8 ...
+ $ reference : chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
+ $ month     : Factor w/ 164 levels "2010-05","2010-06",..: 1 1 1 2 2 2 3 3 4 4 ...
+ $ week      :Class 'aweek'  atomic [1:1724] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
   
 # create new dataframe of monthly mean price 
@@ -91,22 +96,36 @@ str(monthprice)
  $ price: num  17.6 17.4 18.1 18.4 20.1 ...
 
 ## weekly time series
+str(data$week) 
+Class 'aweek'  atomic [1:1724] 2010-W19 2010-W20 2010-W21 2010-W23 ...
+  ..- attr(*, "week_start")= int 1 
+head(data$week,2) 
+<aweek start: Monday>
+[1] "2010-W19" "2010-W20"
+
 # remove week day part from aweek week and stay in aweek format
 data$week <- trunc(data$week) 
-  
-# create new dataframe of weekly mean price based on 'aweek' variable 
-weeklyprice <- aggregate(price ~ week, data, mean)
 
+# create new dataframe of weekly mean price based on 'aweek' variable 
+weeklyprice <- aggregate(price ~ week, data, mean) 
+
+str(weeklyprice) 
+
+# includes missing data, as levels (all weeks) = 709 but obs (weeks with price) = 614 
+
+head(weeklyprice) 
+
+tail(weeklyprice) 
+ 
 # add date column from aweek week & change to date format 
-weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]]) 
+weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])  
+# round mean prices to whole cents
+weeklyprice[["price"]] = round(weeklyprice[["price"]], digits = 2)
 
 # load package xts
 library("xts")
 # load package zoo
 library("zoo")
-
-# round mean prices to whole cents
-weeklyprice[["price"]] = round(weeklyprice[["price"]], digits = 2)
 
 # convert and add aweek week to date format date 
 weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])
@@ -124,17 +143,17 @@ str(weeklyprice)
 # How many weeks should be included if there were prices for all weeks?
 weeklypriceallDates <- seq.Date( min(weeklyprice$date), max(weeklyprice$date), "week")
 length(weeklypriceallDates) 
-[1] 708 
+[1] 709 
 # How many weeks were there in weekly prices dataframe which omits weeks with missing prices?
 nrow(weeklyprice)
-[1] 613
-# So 708 - 613 = 95 missing prices/weeks 
+[1] 614
+# So 709 - 614 = 95 missing prices/weeks 
 
 # create dataframe of all the weeks with missing weeks of prices as NA
 weeklypricemissingprices <- merge(x= data.frame(date = weeklypriceallDates),  y = weeklyprice,  all.x=TRUE)
 
 str(weeklypricemissingprices)
-'data.frame':	708 obs. of  3 variables:
+'data.frame':	709 obs. of  3 variables:
  $ date : Date, format: "2010-05-10" "2010-05-17" ...
  $ price: num  17.8 17.5 17.5 NA 17 ...
  $ week : 'aweek' chr  "2010-W19" "2010-W20" "2010-W21" NA ...
@@ -175,15 +194,15 @@ head(weeklypricefilled)
 2010-05-10 2010-05-17 2010-05-24 2010-05-31 2010-06-07 2010-06-14 
     17.750     17.500     17.500     17.250     17.000     17.375
 str(weeklypricefilled)
-‘zoo’ series from 2010-05-10 to 2023-11-20
-  Data: num [1:708] 17.8 17.5 17.5 17.2 17 ...
-  Index:  Date[1:708], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
+‘zoo’ series from 2010-05-10 to 2023-12-04
+  Data: num [1:709] 17.8 17.5 17.5 17.2 17 ...
+  Index:  Date[1:709], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
 
 # Convert xts time series to a data.frame
 weeklypricefilleddataframe <- as.data.frame(weeklypricefilled)   
  
 str(weeklypricefilleddataframe) 
-'data.frame':	708 obs. of  1 variable:
+'data.frame':	709 obs. of  1 variable:
  $ weeklypricefilled: num  17.8 17.5 17.5 17.2 17 ... 
  
 head(weeklypricefilleddataframe) 
@@ -214,17 +233,12 @@ head(weeklypricefilleddataframe,2)
 5            17.000 2010-06-07
 6            17.375 2010-06-14
 str(weeklypricefilleddataframe)
-'data.frame':	708 obs. of  2 variables:
+'data.frame':	709 obs. of  2 variables:
  $ weeklypricefilled: num  17.8 17.5 17.5 17.2 17 ...
  $ date             : chr  "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
 
 # set weekly date column to date format 
 weeklypricefilleddataframe$date <- as.Date(weeklypricefilleddataframe$date)
-
-str(weeklypricefilleddataframe)
-'data.frame':	708 obs. of  2 variables:
- $ weeklypricefilled: num  17.8 17.5 17.5 17.2 17 ...
- $ date             : Date, format: "2010-05-10" "2010-05-17" ... 
 
 # make the date column the left column and the price the right or second column 
 weeklypricefilleddataframe <- weeklypricefilleddataframe[,c(2,1)]  
@@ -233,7 +247,7 @@ weeklypricefilleddataframe <- weeklypricefilleddataframe[,c(2,1)]
 weeklypricefilleddataframe[["weeklypricefilled"]] = round(weeklypricefilleddataframe[["weeklypricefilled"]], digits = 2)
 
 str(weeklypricefilleddataframe)
-'data.frame':	708 obs. of  2 variables:
+'data.frame':	709 obs. of  2 variables:
  $ date             : Date, format: "2010-05-10" "2010-05-17" ...
  $ weeklypricefilled: num  17.8 17.5 17.5 17.2 17 ... 
 
@@ -296,7 +310,7 @@ dev.off()
 # create time series object for average weekly prices
 weekts <- ts(weeklypricefilleddataframe[["weeklypricefilled"]],frequency=52,start = c(2010,19))
 str(weekts) 
-Time-Series [1:707] from 2010 to 2024: 17.8 17.5 17.5 17.2 17 ... 
+Time-Series [1:709] from 2010 to 2024: 17.8 17.5 17.5 17.2 17 ... 
 
 svg(filename="NZU-mean-weekly-prices-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
@@ -309,6 +323,29 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
+sessionInfo()
+R version 3.3.3 (2017-03-06)
+Platform: i686-pc-linux-gnu (32-bit)
+Running under: Debian GNU/Linux 9 (stretch)
+
+locale:
+ [1] LC_CTYPE=en_NZ.UTF-8          LC_NUMERIC=C                 
+ [3] LC_TIME=en_NZ.UTF-8           LC_COLLATE=en_NZ.UTF-8       
+ [5] LC_MONETARY=en_NZ.UTF-8       LC_MESSAGES=en_NZ.UTF-8      
+ [7] LC_PAPER=en_NZ.UTF-8          LC_NAME=en_NZ.UTF-8          
+ [9] LC_ADDRESS=en_NZ.UTF-8        LC_TELEPHONE=en_NZ.UTF-8     
+[11] LC_MEASUREMENT=en_NZ.UTF-8    LC_IDENTIFICATION=en_NZ.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] xts_0.9-7    zoo_1.8-12   aweek_1.0.3  rkward_0.6.5
+
+loaded via a namespace (and not attached):
+[1] tools_3.3.3     grid_3.3.3      lattice_0.20-34 
+
+# prior to Sunday 10 December 2023
 sessionInfo()
 R version 3.3.3 (2017-03-06)
 Platform: i686-pc-linux-gnu (32-bit)
