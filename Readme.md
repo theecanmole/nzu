@@ -2,15 +2,25 @@
 
 ### Description
 
-This data repository provides a reproducible public domain data series of mean monthly spot prices, mean weekly spot prices and spot prices of the New Zealand emission unit (or "NZU"), the domestic emission unit in the [New Zealand emissions trading scheme](https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/ "New Zealand emissions trading scheme").      
+This data repository provides a reproducible public domain data series of prices of the New Zealand emission unit (or "NZU"), the domestic emission unit in the [New Zealand emissions trading scheme](https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/ "New Zealand emissions trading scheme").      
 
 New Zealand has had an emissions trading scheme since 2009.  Although private sector carbon brokers display current and some historic trading prices for sales of the NZ emission unit (the "NZU"), there is no public data series of the New Zealand carbon price.
 
+* The web-scraped edited price data: [nzu-edited-raw-prices-data.csv](nzu-edited-raw-prices-data.csv).
+
+* The mean monthly price data: [nzu-month-price.csv](nzu-month-price.csv).
+
+* The mean weekly price data: [weeklymeanprice.csv](weeklymeanprice.csv).
+
+* The spot prices: [spotprices.csv](spotprices.csv).
+
+### Charts
+
 ![New Zealand mean monthly emission unit prices 2010 - 2022](NZUprice-720by540.svg) 
 
-![New Zealand spot emission unit prices 2010 - 2022](NZU-spot-prices-720by540.svg) 
-
 ![New Zealand mean weekly emission unit prices 2010 - 2022](NZU-mean-weekly-prices-720by540.svg)
+
+![New Zealand spot emission unit prices 2010 - 2022](NZU-spot-prices-720by540.svg)
 
 There is a chart of the monthly data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
 
