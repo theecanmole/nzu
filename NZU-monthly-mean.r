@@ -234,10 +234,7 @@ head(weeklypricefilleddataframe,2)
   weeklypricefilled       date
 1            17.750 2010-05-10
 2            17.500 2010-05-17
-3            17.500 2010-05-24
-4            17.250 2010-05-31
-5            17.000 2010-06-07
-6            17.375 2010-06-14
+
 str(weeklypricefilleddataframe)
 'data.frame':	710 obs. of  2 variables:
  $ weeklypricefilled: num  17.8 17.5 17.5 17.2 17 ...
@@ -274,6 +271,146 @@ write.table(monthprice, file = "nzu-month-price.csv", sep = ",", col.names = TRU
 # write the mean week price dataframe to a .csv file 
 write.table(weeklyprice, file = "weeklymeanprice.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
+## fill in missing values in week day spot prices
+library("xts")
+library("zoo")
+spotprices <- read.csv("spotprices.csv", colClasses = c("Date","numeric"))
+
+str(spotprices) 
+'data.frame':	1735 obs. of  2 variables:
+ $ date : Date, format: "2010-05-14" "2010-05-21" ...
+ $ price: num  17.8 17.5 17.5 17 17.8 ... 
+
+# How many day dates should be included if there were prices for all days from May 2010 to Dec 2023?
+spotpricealldates <- seq.Date(min(spotprices$date), max(spotprices$date), "day")
+length(spotpricealldates) 
+[1] 4971
+# how many missing values are there?
+length(spotpricealldates) - nrow(spotprices) 
+[1] 3237
+
+# create dataframe of all the days with missing prices added as NA
+spotpricealldatesmissingprices <- merge(x= data.frame(date = spotpricealldates),  y = spotprices,  all.x=TRUE)
+
+head(spotpricealldatesmissingprices) 
+        date price
+1 2010-05-14 17.75
+2 2010-05-15    NA
+3 2010-05-16    NA
+4 2010-05-17    NA
+5 2010-05-18    NA
+6 2010-05-19    NA
+
+# Convert the data frame price and date columns to a zoo time series object
+spotpricealldatesmissingpriceszoo <- zoo(spotpricealldatesmissingprices[["price"]], spotpricealldatesmissingprices[["date"]])
+# check the object's structure
+str(spotpricealldatesmissingpriceszoo)
+‘zoo’ series from 2010-05-14 to 2023-12-22
+  Data: num [1:4971] 17.8 NA NA NA NA ...
+  Index:  Date[1:4971], format: "2010-05-14" "2010-05-15" "2010-05-16" "2010-05-17" "2010-05-18" ...
+# look a first 6 lines/rows
+head(spotpricealldatesmissingpriceszoo) 
+2010-05-14 2010-05-15 2010-05-16 2010-05-17 2010-05-18 2010-05-19 
+     17.75         NA         NA         NA         NA         NA
+
+# create a zoo matrix with filled in the missing prices with linear interpolation via zoo package and save output  
+spotpricefilled <- na.approx(spotpricealldatesmissingpriceszoo)
+# round infilled values to cents
+spotpricefilled <- round(spotpricefilled,2)
+
+head(spotpricefilled) 
+2010-05-14 2010-05-15 2010-05-16 2010-05-17 2010-05-18 2010-05-19 
+     17.75      17.71      17.68      17.64      17.61      17.57
+
+str(spotpricefilled) 
+‘zoo’ series from 2010-05-14 to 2023-12-08
+  Data: num [1:4971] 17.8 17.7 17.7 17.6 17.6 ...
+  Index:  Date[1:4971], format: "2010-05-14" "2010-05-15" "2010-05-16" "2010-05-17" "2010-05-18" ... 
+  
+# Convert  the zoo vector to a data frame
+spotpricefilleddataframe <- as.data.frame(spotpricefilled)   
+
+# Convert row names to a column called date
+spotpricefilleddataframe$date <- rownames(spotpricefilleddataframe)     
+
+# Reset row names
+rownames(spotpricefilleddataframe) <- NULL           
+
+# change date from character to date format 
+spotpricefilleddataframe$date <- as.Date(spotpricefilleddataframe$date)
+
+# make the date column the left column and the price the right or second column 
+spotpricefilleddataframe <- spotpricefilleddataframe[,c(2,1)] 
+
+head(spotpricefilleddataframe) 
+         date spotpricefilled
+1 2010-05-14        17.75000
+2 2010-05-15        17.71429
+3 2010-05-16        17.67857
+4 2010-05-17        17.64286
+5 2010-05-18        17.60714
+6 2010-05-19        17.57143
+
+# rename column
+colnames(spotpricefilleddataframe)[2] <- c("price")
+
+head(spotpricefilleddataframe) 
+        date price
+1 2010-05-14 17.75
+2 2010-05-15 17.71
+3 2010-05-16 17.68
+4 2010-05-17 17.64
+5 2010-05-18 17.61
+6 2010-05-19 17.57
+
+str(spotpricefilleddataframe) 
+'data.frame':	4971 obs. of  2 variables:
+ $ date : Date, format: "2010-05-14" "2010-05-15" ...
+ $ price: num  17.8 17.7 17.7 17.6 17.6 ... 
+
+# Get the days of week 
+spotpricefilleddataframe$day <- format(as.Date(spotpricefilleddataframe$date), "%A")
+
+head(spotpricefilleddataframe)  
+        date price       day
+1 2010-05-14 17.75    Friday
+2 2010-05-15 17.71  Saturday
+3 2010-05-16 17.68    Sunday
+4 2010-05-17 17.64    Monday
+5 2010-05-18 17.61   Tuesday
+6 2010-05-19 17.57 Wednesday 
+
+# Where are the Saturdays ? use Logical indexing
+idSat <- spotpricefilleddataframe$day == "Saturday"  
+idSat
+[1] FALSE FALSE  TRUE FALSE ....
+# 4964 records
+# leave out the Saturdays
+spotpricefilleddataframe <- spotpricefilleddataframe[!idSat, ]
+
+# Where are the Sundays ?
+idSun <- spotpricefilleddataframe$day == "Sunday"  
+idSun
+# leave out the Sundays
+spotpricefilleddataframe <- spotpricefilleddataframe[!idSun, ] 
+
+head(spotpricefilleddataframe)
+       date price       day
+1 2010-05-14 17.75    Friday
+4 2010-05-17 17.64    Monday
+5 2010-05-18 17.61   Tuesday
+6 2010-05-19 17.57 Wednesday
+7 2010-05-20 17.54  Thursday
+8 2010-05-21 17.50    Friday 
+
+str(spotpricefilleddataframe)
+'data.frame':	3551 obs. of  3 variables:
+ $ date : Date, format: "2010-05-14" "2010-05-17" ...
+ $ price: num  17.8 17.6 17.6 17.6 17.5 ...
+ $ day  : chr  "Friday" "Monday" "Tuesday" "Wednesday" ... 
+
+# write the spot prices dataframe to a .csv file 
+write.table(spotpricefilleddataframe, file = "spotpricesinfilled.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE) 
 
 # charts
 # read in monthly mean prices data (if needed)
@@ -295,14 +432,14 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
-# create svg format chart of all spot (secondary) prices with 14 pt text font and grid lines via 'grid'
+# create svg format chart of all spot (secondary) prices with 14 pt text font and grid lines via 'grid' with colour as 'pomegranite' "#ED1A3B"
 
 svg(filename="NZU-spot-prices-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(spotprice[["date"]],spotprice[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+plot(spotpricefilleddataframe[["date"]],spotpricefilleddataframe[["price"]],tck=0.01,axes=TRUE,ann=TRUE, las=1,col= "#ED1A3B" ,lwd=1,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=0.9,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=1,cex=0.9,line=-1.3,"Data: 'NZU prices' https://github.com/theecanmole/nzu")
 mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit spot prices 2010 - 2023")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)

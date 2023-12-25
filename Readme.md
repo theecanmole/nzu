@@ -2,17 +2,19 @@
 
 ### Description
 
-This data repository provides a reproducible public domain data series of prices of the New Zealand emission unit (or "NZU"), the domestic emission unit in the [New Zealand emissions trading scheme](https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/ "New Zealand emissions trading scheme").      
-
-New Zealand has had an emissions trading scheme since 2009.  Although private sector carbon brokers display current and some historic trading prices for sales of the NZ emission unit (the "NZU"), there is no public data series of the New Zealand carbon price.
+This repository provides several examples of data series of trading prices for the New Zealand emission unit (or "NZU"), the domestic emission unit in the [New Zealand emissions trading scheme](https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/ "New Zealand emissions trading scheme").      
 
 * The web-scraped edited price data: [nzu-edited-raw-prices-data.csv](nzu-edited-raw-prices-data.csv).
 
 * The mean monthly price data: [nzu-month-price.csv](nzu-month-price.csv).
 
-* The mean weekly price data: [weeklymeanprice.csv](weeklymeanprice.csv).
+* The mean weekly price data with missing values infilled by linear 
+interpolation: [weeklymeanprice.csv](weeklymeanprice.csv).
 
-* The spot prices: [spotprices.csv](spotprices.csv).
+* The spot prices which have missing values: [spotprices.csv](spotprices.csv).
+
+* The spot prices with the missing values infilled by linear 
+interpolation: [spotpricesinfilled.csv](spotpricesinfilled.csv)
 
 ### Charts
 
@@ -32,9 +34,13 @@ Data preparation was performed with the [R programming language](https://www.r-p
 
 #### Processing
 
-The price data has been web-scraped with the Python script 'api.py' and recorded in the file [nzu-edited-raw-prices-data](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data). 
+The price data has been web-scraped by a Python script 'api.py' 
+(which was kindly contributed by [Edi 
+Rose](https://github.com/edi-rose/)).
+It is recorded in the file [nzu-edited-raw-prices-data](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data). 
 
-Run the commands in the R script [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) from a directory to download and process the raw data into a mean monthly time series, a mean weekly time series and an irregular time series of secondary market spot prices. These dataframes are then written to .csv files.
+The commands in the R script 
+[NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) process the raw data into a mean monthly time series, a mean weekly time series and an irregular time series of secondary market spot prices. These dataframes are then written to .csv files.
 
 #### Data files at Google sheets
 
