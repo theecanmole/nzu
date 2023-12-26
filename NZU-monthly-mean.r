@@ -465,7 +465,7 @@ str(spotrollmean31)
 # write the spot prices dataframe to a .csv file 
 write.table(spotrollmean31, file = "spotrollmean31.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)  
 
-# charts
+## charts
 # read in monthly mean prices data (if needed)
 monthprice <- read.csv("nzu-month-price.csv", skip=0, header=TRUE, sep=",", colClasses = c("Date","numeric"),na.strings="NA", dec=".", strip.white=TRUE)
 
@@ -511,6 +511,18 @@ grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
 mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
 mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit mean weekly spot prices 2010 2023")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off()
+
+# create svg format chart of 31 day rolling mean of infilled spot prices 
+svg(filename="NZU-rollingmean-prices-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(spotrollmean31,tck=0.01,axes=T,ann=T, las=1,col='4',lwd=1,type='l',lty=1)
+grid(col="darkgray",lwd=1)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+mtext(side=1,cex=0.8,line=-1.1,"Data: 'NZU prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.2, line=-2.2,expression(paste("New Zealand Unit rolling mean spot prices 2010 2023")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
