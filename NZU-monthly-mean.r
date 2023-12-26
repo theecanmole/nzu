@@ -277,7 +277,7 @@ library("zoo")
 spotprices <- read.csv("spotprices.csv", colClasses = c("Date","numeric"))
 
 str(spotprices) 
-'data.frame':	1735 obs. of  2 variables:
+'data.frame':	1734 obs. of  2 variables:
  $ date : Date, format: "2010-05-14" "2010-05-21" ...
  $ price: num  17.8 17.5 17.5 17 17.8 ... 
 
@@ -411,6 +411,59 @@ str(spotpricefilleddataframe)
 
 # write the spot prices dataframe to a .csv file 
 write.table(spotpricefilleddataframe, file = "spotpricesinfilled.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE) 
+spotpricefilleddataframe <- read.csv("spotpricesinfilled.csv", colClasses = c("Date","numeric","character")) 
+
+## create rolling mean time series
+
+# read in the infilled spot prices data if needed
+#spotpricefilleddataframe <- read.csv("spotpricesinfilled.csv")
+# confirm date format of date column if needed
+#spotpricesinfilled[["date"]] <- as.Date(spotpricesinfilled[["date"]]) 
+
+str(spotpricefilleddataframe)
+'data.frame':	3551 obs. of  3 variables:
+ $ date : Date, format: "2010-05-14" "2010-05-17" ...
+ $ price: num  17.8 17.6 17.6 17.6 17.5 ...
+ $ day  : chr  "Friday" "Monday" "Tuesday" "Wednesday" ...
+
+spot <- spotpricefilleddataframe[,1:2]
+str(spot) 
+'data.frame':	3551 obs. of  3 variables:
+ $ date      : Date, format: "2010-05-14" "2010-05-17" ...
+ $ price     : num  17.8 17.6 17.6 17.6 17.5 ...
+ $ spotroll31: num  NA NA NA NA NA NA NA NA NA NA ...
+# write the spot prices dataframe to a .csv file 
+write.table(spot, file = "spotpricesinfilled.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE) 
+'data.frame':	3546 obs. of  2 variables:
+ $ date : Date, format: "2010-05-14" "2010-05-17" ...
+ $ price: num  17.8 17.6 17.6 17.6 17.5 ...
+
+## Generic functions for computing rolling means, maximums, medians, and sums of ordered observations.
+
+Usage
+rollmean(x, k, fill = if (na.pad) NA, na.pad = FALSE, align = c("center", "left", "right"), ...)
+# create 31 day (a month) rolling average
+
+spot$spotroll31 <- rollmean(spot[["price"]], k =31,  fill = NA, align = c("center"))
+
+str(spot) 
+'data.frame':	3551 obs. of  3 variables:
+ $ date      : Date, format: "2010-05-14" "2010-05-17" ...
+ $ price     : num  17.8 17.6 17.6 17.6 17.5 ...
+ $ spotroll31: num  NA NA NA NA NA NA NA NA NA NA ... 
+# round the rolling mean values to cents
+spot$spotroll31 <- round(spot$spotroll31,2)
+
+# create dataframe of only the 31 day rolling mean values and dates
+spotrollmean31  <-spot[,c(1,3)] 
+colnames(spotrollmean31) <- c("date","price") 
+str(spotrollmean31) 
+'data.frame':	3551 obs. of  2 variables:
+ $ date : Date, format: "2010-05-14" "2010-05-17" ...
+ $ price: num  NA NA NA NA NA NA NA NA NA NA ...
+
+# write the spot prices dataframe to a .csv file 
+write.table(spotrollmean31, file = "spotrollmean31.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)  
 
 # charts
 # read in monthly mean prices data (if needed)

@@ -8,21 +8,24 @@ This repository provides several examples of data series of trading prices for t
 
 * The mean monthly price data: [nzu-month-price.csv](nzu-month-price.csv).
 
-* The mean weekly price data with missing values infilled by linear 
-interpolation: [weeklymeanprice.csv](weeklymeanprice.csv).
+* The mean weekly price data with missing values infilled by linear interpolation: [weeklymeanprice.csv](weeklymeanprice.csv).
 
 * The spot prices which have missing values: [spotprices.csv](spotprices.csv).
 
-* The spot prices with the missing values infilled by linear 
-interpolation: [spotpricesinfilled.csv](spotpricesinfilled.csv)
+* The spot prices with the missing values infilled by linear interpolation: [spotpricesinfilled.csv](spotpricesinfilled.csv)
+
+* The 31 day rolling mean of the spot prices with the missing values 
+infilled by linear interpolation: [spotrollmean31.csv](spotrollmean31.csv)
 
 ### Charts
 
-![New Zealand mean monthly emission unit prices 2010 - 2022](NZUprice-720by540.svg) 
+![New Zealand mean monthly emission unit prices 2010 - 2023](NZUprice-720by540.svg) 
 
-![New Zealand mean weekly emission unit prices 2010 - 2022](NZU-mean-weekly-prices-720by540.svg)
+![New Zealand mean weekly emission unit prices 2010 - 2023](NZU-mean-weekly-prices-720by540.svg)
 
-![New Zealand spot emission unit prices 2010 - 2022](NZU-spot-prices-720by540.svg)
+![New Zealand spot emission unit prices 2010 - 2023](NZU-spot-prices-720by540.svg)
+
+![New Zealand 31 day rolling mean emission unit spot prices 2010 - 2023](NZU-rollingmean-prices-720by540.svg)
 
 There is a chart of the monthly data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
 
