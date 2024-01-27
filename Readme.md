@@ -14,8 +14,7 @@ This repository provides several examples of data series of trading prices for t
 
 * The spot prices with the missing values infilled by linear interpolation: [spotpricesinfilled.csv](spotpricesinfilled.csv)
 
-* The 31 day rolling mean of the spot prices with the missing values 
-infilled by linear interpolation: [spotrollmean31.csv](spotrollmean31.csv)
+* The 31 day rolling mean of the spot prices with the missing values infilled by linear interpolation: [spotrollmean31.csv](spotrollmean31.csv)
 
 ### Charts
 
@@ -37,9 +36,7 @@ Data preparation was performed with the [R programming language](https://www.r-p
 
 #### Processing
 
-The price data has been web-scraped by a Python script 'api.py' 
-(which was kindly contributed by [Edi 
-Rose](https://github.com/edi-rose/)).
+The price data has been web-scraped by a Python script 'api.py' (which was kindly contributed by [Edi Rose](https://github.com/edi-rose/)).
 It is recorded in the file [nzu-edited-raw-prices-data](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data). 
 
 The commands in the R script 
