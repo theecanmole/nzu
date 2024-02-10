@@ -1732,7 +1732,6 @@
 2023/12/20,69.25,https://www.carbonnews.co.nz/story.asp?storyID=29574,2023-12,2023-W51
 2023/12/21,68.75,https://www.carbonnews.co.nz/story.asp?storyID=29589,2023-12,2023-W51
 2023/12/22,68.70,https://www.carbonnews.co.nz/story.asp?storyID=29590,2023-12,2023-W51
-2023/12/27,68.50,https://www.mynativeforest.com/carbon-price-nz,2023-12,2023-W52
 2023/12/27,69.25,https://www.mynativeforest.com/carbon-price-nz,2023-12,2023-W52
 2023/12/28,68.65,https://www.mynativeforest.com/carbon-price-nz,2023-12,2023-W52
 2023/12/29,69.15,https://www.mynativeforest.com/carbon-price-nz,2023-12,2023-W52
@@ -1743,7 +1742,6 @@
 2024/01/09,68.85,https://www.mynativeforest.com/carbon-price-nz,2023-12,2024-W02
 2024/01/10,69.00,https://www.mynativeforest.com/carbon-price-nz,2023-12,2024-W02
 2024/01/11,69.00,https://www.mynativeforest.com/carbon-price-nz,2023-12,2024-W02
-2024/01/12,67.25,https://www.mynativeforest.com/carbon-price-nz,2023-12,2024-W02
 2024/01/12,67.70,https://www.emstradepoint.co.nz/documents/459/CARBON_TRADE_DATA_15-01-24.csv,2024-01,2024-W02
 2024/01/15,67.50,https://www.emstradepoint.co.nz/documents/459/CARBON_TRADE_DATA_15-01-24.csv,2024-01,2024-W03
 2024/01/16,67.85,https://www.emstradepoint.co.nz/documents/459/CARBON_TRADE_DATA_15-01-24.csv,2024-01,2024-W03
@@ -1753,4 +1751,13 @@
 2024/01/24,69.00,https://www.carbonnews.co.nz/story.asp?storyID=29630,2024-01,2024-W04
 2024/01/25,71.00,https://www.carbonnews.co.nz/story.asp?storyID=29640,2024-01,2024-W04
 2024/01/26,70.70,https://www.carbonnews.co.nz/story.asp?storyID=29657,2024-01,2024-W04
+2024/01/29,70.90,https://www.carbonnews.co.nz/story.asp?storyID=29666,2024-01,2024-W05
+2024/01/30,71.25,https://www.carbonnews.co.nz/story.asp?storyID=29677,2024-01,2024-W05
+2024/01/31,71.45,https://www.carbonnews.co.nz/story.asp?storyID=29689,2024-01,2024-W05
+2024/02/01,73.85,https://www.carbonnews.co.nz/story.asp?storyID=29700,2024-02,2024-W05
+2024/02/02,73.70,https://www.carbonnews.co.nz/story.asp?storyID=29712,2024-02,2024-W05
+2024/02/05,73.25,https://www.carbonnews.co.nz/story.asp?storyID=29717,2024-02,2024-W06
+2024/02/07,73.15,https://www.carbonnews.co.nz/story.asp?storyID=29734,2024-02,2024-W06
+2024/02/08,72.70,https://www.carbonnews.co.nz/story.asp?storyID=29747,2024-02,2024-W06
+2024/02/09,72.45,https://www.carbonnews.co.nz/story.asp?storyID=29759,2024-02,2024-W06
 date,price,reference,month,week
