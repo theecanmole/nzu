@@ -82,6 +82,21 @@ mtext(side=3,cex=1.3, line=-2.2,expression(paste("New Zealand Unit Spot Prices 2
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
+ls()
+str(weeklypricefilled)
+‘zoo’ series from 2010-05-10 to 2024-03-25
+  Data: num [1:725] 17.8 17.5 17.5 17.2 17 ...
+  Index:  Date[1:725], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ... 
+svg(filename="NZUpricesweeklyzoo-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+par(mar=c(2.7,2.7,1,1)+0.1)
+plot(weeklypricefilled,tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=2,type='l',lty=1)
+grid(col="darkgray",lwd=1)
+axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
+mtext(side=1,cex=0.9,line=-1.3,"Data: 'NZU weekly prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.3, line=-2.2,expression(paste("New Zealand Unit weekly mean spot prices 2010 - 2022")) )
+mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
+mtext(side=4,cex=0.75, line=0.05,R.version.string)
+dev.off() 
 
 abline(h=c(25,40),col="lightgray",lwd=0.5,lty=2)
 
@@ -107,15 +122,14 @@ mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
 
-# Use 'decimal' year vector in place of date-formatted month vector black dots
-svg(filename="NZUprice-720by540.svg", width = 8, height = 6, pointsize = 16, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
+# spot price infilled zoo matrix
+svg(filename="NZUspotpriceZoo-720by540.svg", width = 8, height = 6, pointsize = 14, onefile = FALSE, family = "sans", bg = "white", antialias = c("default", "none", "gray", "subpixel"))  
 par(mar=c(2.7,2.7,1,1)+0.1)
-plot(monthprice[["decimal"]],monthprice[["price"]],ylim=c(0,99),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=1,type='l',lty=1)
-points(monthprice[["decimal"]],monthprice[["price"]],pch = 20)
+plot(spotpricefilled,ylim=c(0,99),tck=0.01,axes=TRUE,ann=TRUE, las=1,col=2,lwd=1,type='l',lty=1)
 grid(col="darkgray",lwd=1)
 axis(side=4, tck=0.01, las=0,tick=TRUE,labels = FALSE)
-mtext(side=1,cex=1,line=-1.3,"Data: 'NZU-prices-data-2010-2017' http://bit.ly/2fHbojr")
-mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit Prices 2010 - 2022")) )
+mtext(side=1,cex=1,line=-1.3,"Data: 'NZU monthly prices' https://github.com/theecanmole/nzu")
+mtext(side=3,cex=1.7, line=-2.2,expression(paste("New Zealand Unit spot prices 2010 - 2024")) )
 mtext(side=2,cex=1, line=-1.3,"$NZ Dollars/tonne")
 mtext(side=4,cex=0.75, line=0.05,R.version.string)
 dev.off()
