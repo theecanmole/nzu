@@ -1,6 +1,6 @@
 Licence
 
-These data sets "NZU-prices-data-2010-2016" and "nzu-month-price-2010-2016" are made available under the Public Domain Dedication and License v1.0 whose full text can be found reproduced below and at: http://opendatacommons.org/licenses/pddl/1.0/
+These data sets are made available under the Public Domain Dedication and License v1.0 whose full text can be found reproduced below and at: http://opendatacommons.org/licenses/pddl/1.0/
 
 ODC Public Domain Dedication and Licence (PDDL)
 Disclaimer
