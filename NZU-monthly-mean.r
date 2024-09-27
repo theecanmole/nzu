@@ -18,10 +18,10 @@ download.file(urlrawdata, rawdata)
 # or read in raw prices data from a local folder specifying header status as false
 data <- read.csv("nzu-edited-raw-prices-data.csv",header=FALSE,stringsAsFactors = FALSE)
 dim(data)
-[1] 1915    5
+[1] 1920    5
 # examine dataframe
 str(data)
-'data.frame':	1915 obs. of  5 variables:
+'data.frame':	1920 obs. of  5 variables:
  $ V1: chr  "2010/05/14" "2010/05/21" "2010/05/29" "2010/06/11" ...
  $ V2: chr  "17.75" "17.5" "17.5" "17" ...
  $ V3: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -51,7 +51,7 @@ data$week <- as.aweek(data$date)
 
 # examine the dataframe again to check formats of columns
 str(data)
-'data.frame':	1914 obs. of  5 variables:
+'data.frame':	1919 obs. of  5 variables:
  $ date     : Date, format: "2010-05-14" "2010-05-21" ...
  $ price    : num  17.8 17.5 17.5 17 17.8 ...
  $ reference: chr  "http://www.carbonnews.co.nz/story.asp?storyID=4529" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4540" "http://www.carbonnews.co.nz/story.asp?storyID=4588" ...
@@ -101,7 +101,7 @@ data$week <- trunc(data$week)
 weeklyprice <- aggregate(price ~ week, data, mean) 
 
 str(weeklyprice) 
-'data.frame':	655 obs. of  2 variables:
+'data.frame':	656 obs. of  2 variables:
  $ week :Class 'aweek'  atomic [1:644] 2010-W19 2010-W20 2010-W21 2010-W23 ...
   .. ..- attr(*, "week_start")= int 1
  $ price: num  17.8 17.5 17.5 17 17.8 ...
@@ -109,12 +109,12 @@ str(weeklyprice)
 
 tail(weeklyprice) 
         week  price
-650 2024-W33 53.658
 651 2024-W34 57.638
 652 2024-W35 60.885
 653 2024-W36 61.782
 654 2024-W37 61.618
 655 2024-W38 61.328
+656 2024-W39 61.842
 # add date column from aweek week & change to date format 
 weeklyprice[["date"]] <- as.Date(weeklyprice[["week"]])  
 # round mean prices to whole cents
@@ -128,7 +128,7 @@ library("zoo")
 # change order of columns
 weeklyprice <- weeklyprice[,c(3,2,1)]
 str(weeklyprice)
-'data.frame':	655 obs. of  3 variables:
+'data.frame':	656 obs. of  3 variables:
  $ date : Date, format: "2010-05-10" "2010-05-17" ...
  $ price: num  17.8 17.5 17.5 17 17.8 ...
  $ week :Class 'aweek'  atomic [1:648] 2010-W19 2010-W20 2010-W21 2010-W23 ...
@@ -139,11 +139,11 @@ str(weeklyprice)
 # How many weeks should be included if there were prices for all weeks?
 weeklypriceallDates <- seq.Date( min(weeklyprice$date), max(weeklyprice$date), "week")
 str(weeklypriceallDates)
- Date[1:750], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
+ Date[1:751], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
 
 # How many weeks were there in weekly prices dataframe which omits weeks with missing prices?
 nrow(weeklyprice)
-[1] 655
+[1] 656
 # How many missing weeks?
 length(weeklypriceallDates) - nrow(weeklyprice)
 [1] 95
@@ -153,7 +153,7 @@ length(weeklypriceallDates) - nrow(weeklyprice)
 weeklypricemissingprices <- merge(x= data.frame(date = weeklypriceallDates),  y = weeklyprice,  all.x=TRUE)
 
 str(weeklypricemissingprices)
-'data.frame':	750 obs. of  3 variables:
+'data.frame':	751 obs. of  3 variables:
  $ date : Date, format: "2010-05-10" "2010-05-17" ...
  $ price: num  17.8 17.5 17.5 NA 17 ...
  $ week : 'aweek' chr  "2010-W19" "2010-W20" "2010-W21" NA ...
@@ -175,8 +175,8 @@ head(weeklypricemissingprices,9)
 weeklypricemissingpriceszoo <- zoo(weeklypricemissingprices[["price"]], weeklypricemissingprices[["date"]])
 str(weeklypricemissingpriceszoo) 
 ‘zoo’ series from 2010-05-10 to 2024-04-08
-  Data: num [1:750] 17.8 17.5 17.5 NA 17 ...
-  Index:  Date[1:750], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" 
+  Data: num [1:751] 17.8 17.5 17.5 NA 17 ...
+  Index:  Date[1:751], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" 
 head(weeklypricemissingpriceszoo,9)
 2010-05-10 2010-05-17 2010-05-24 2010-05-31 2010-06-07 2010-06-14 2010-06-21 
      17.75      17.50      17.50         NA      17.00         NA      17.75 
@@ -199,15 +199,15 @@ head(weeklypricefilled)
 # check zoo object
 str(weeklypricefilled)
 ‘zoo’ series from 2010-05-10 to 2024-08-26
-  Data: num [1:750] 17.8 17.5 17.5 17.2 17 ...
-  Index:  Date[1:750], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
+  Data: num [1:751] 17.8 17.5 17.5 17.2 17 ...
+  Index:  Date[1:751], format: "2010-05-10" "2010-05-17" "2010-05-24" "2010-05-31" ...
 
 # Convert zoo(xts) time series to a data.frame
 weeklypricefilleddataframe <- data.frame(date=index(weeklypricefilled),price=coredata(weeklypricefilled))   
  
 # check dataframe
 str(weeklypricefilleddataframe)
-'data.frame':	750 obs. of  2 variables:
+'data.frame':	751 obs. of  2 variables:
  $ date : Date, format: "2010-05-10" "2010-05-17" ...
  $ price: num  17.8 17.5 17.5 17.2 17 ...
 
@@ -234,23 +234,23 @@ library("zoo")
 spotprice <- read.csv("spotprices.csv", colClasses = c("Date","numeric"))
 
 str(spotprice) 
-'data.frame':	1914 obs. of  2 variables:
+'data.frame':	1919 obs. of  2 variables:
  $ date : Date, format: "2010-05-14" "2010-05-21" ...
  $ price: num  17.8 17.5 17.5 17 17.8 ... 
 
 # How many day dates should be included if there were prices for all days from May 2010 to the present?
 spotpricealldates <- seq.Date(min(spotprice$date), max(spotprice$date), "day")
 length(spotpricealldates) 
-[1] 5244
+[1] 5251
 # how many missing values are there?
 length(spotpricealldates) - nrow(spotprice) 
-[1] 3330
+[1] 3332
 
 # create dataframe of all the days with missing prices added as NA
 spotpricealldatesmissingprices <- merge(x= data.frame(date = spotpricealldates),  y = spotprice,  all.x=TRUE)
 
 str(spotpricealldatesmissingprices) 
-'data.frame':	5244 obs. of  2 variables:
+'data.frame':	5251 obs. of  2 variables:
  $ date : Date, format: "2010-05-14" "2010-05-15" ...
  $ price: num  17.8 NA NA NA NA ...
 head(spotpricealldatesmissingprices) 
@@ -267,8 +267,8 @@ spotpricealldatesmissingpriceszoo <- zoo(spotpricealldatesmissingprices[["price"
 # check the object's structure
 str(spotpricealldatesmissingpriceszoo)
 ‘zoo’ series from 2010-05-14 to 2024-04-05
-  Data: num [1:5244] 17.8 NA NA NA NA ...
-  Index:  Date[1:5244], format: "2010-05-14" "2010-05-15" "2010-05-16" "2010-05-17" "2010-05-18" ...
+  Data: num [1:5251] 17.8 NA NA NA NA ...
+  Index:  Date[1:5251], format: "2010-05-14" "2010-05-15" "2010-05-16" "2010-05-17" "2010-05-18" ...
 # look a first 6 lines/rows
 head(spotpricealldatesmissingpriceszoo) 
 2010-05-14 2010-05-15 2010-05-16 2010-05-17 2010-05-18 2010-05-19 
@@ -286,8 +286,8 @@ head(spotpricefilled)
 
 str(spotpricefilled) 
 ‘zoo’ series from 2010-05-14 to 2024-08-30
-  Data: num [1:5244] 17.8 17.7 17.7 17.6 17.6 ...
-  Index:  Date[1:5244], format: "2010-05-14" "2010-05-15" "2010-05-16" "2010-05-17" ...
+  Data: num [1:5251] 17.8 17.7 17.7 17.6 17.6 ...
+  Index:  Date[1:5251], format: "2010-05-14" "2010-05-15" "2010-05-16" "2010-05-17" ...
   
 # Convert  the zoo vector to a data frame
 spotpricefilleddataframe <- data.frame(date=index(spotpricefilled),price=coredata(spotpricefilled))   
@@ -329,7 +329,7 @@ head(spotpricefilleddataframe)
 8 2010-05-21 17.50    Friday 
 
 str(spotpricefilleddataframe)
-'data.frame':	3746 obs. of  3 variables:
+'data.frame':	3751 obs. of  3 variables:
  $ date : Date, format: "2010-05-14" "2010-05-17" ...
  $ price: num  17.8 17.6 17.6 17.6 17.5 ...
  $ day  : chr  "Friday" "Monday" "Tuesday" "Wednesday" ...
@@ -351,7 +351,7 @@ str(spot)
  $ date      : Date, format: "2010-05-14" "2010-05-17" ...
  $ price     : num  17.8 17.6 17.6 17.6 17.5 ...
 nrow(spot)
-3746
+3751
 # write the infilled spot prices dataframe to a .csv file 
 write.table(spot, file = "spotpricesinfilled.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE) 
 
@@ -370,7 +370,7 @@ spot$spotroll31 <- round(spot$spotroll31,2)
 spotrollmean31  <-spot[,c(1,3)] 
 colnames(spotrollmean31) <- c("date","price") 
 str(spotrollmean31) 
-'data.frame':	3746 obs. of  2 variables:
+'data.frame':	3751 obs. of  2 variables:
  $ date : Date, format: "2010-05-14" "2010-05-17" ...
  $ price: num  NA NA NA NA NA NA NA NA NA NA ...
 
