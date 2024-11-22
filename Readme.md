@@ -14,7 +14,7 @@ This repository provides several examples of data series of trading prices for t
 
 * The spot prices with the missing values infilled by linear interpolation: [spotpricesinfilled.csv](spotpricesinfilled.csv)
 
-* The 31 day rolling mean of the spot prices with the missing values infilled by linear interpolation: [spotrollmean31.csv](spotrollmean31.csv)
+* The 21 day rolling mean of the spot prices with the missing values infilled by linear interpolation: [spotrollmean31.csv](spotrollmean31.csv)
 
 ### Charts
 
