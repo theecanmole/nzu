@@ -42,16 +42,6 @@ It is recorded in the file [nzu-edited-raw-prices-data](https://github.com/theec
 The commands in the R script 
 [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) process the raw data into a mean monthly time series, a mean weekly time series and an irregular time series of secondary market spot prices. These dataframes are then written to .csv files.
 
-#### Data files at Google sheets
-
-1. The web-scraped edited price data: [nzu-edited-raw-prices-data.csv](https://docs.google.com/spreadsheets/d/1X1hX6trIrsp3Uou69osCmovWpLqcIiPZE5T2ZN5XIHw/).
-
-2. The mean monthly price data: [nzu-month-price.csv](https://docs.google.com/spreadsheets/d/1ZNQZQg7fZdU-Hz9K-_7EfLMTvcQK3lJIRHgYYdWYCNk/).
-
-3. The mean weekly price data: [weeklymeanprice.csv](https://docs.google.com/spreadsheets/d/1ofEIPmTlFE12gXU4tWVbHv0-bG0IhIL2jGy4qXM_ugI/).
-
-5. The spot prices: [spotprices.csv](https://docs.google.com/spreadsheets/d/1sg_WvZFV1lasiv54f5GGW7nV5mMI70vCPpIViUVzN9k/edit#gid=1526631005).
-
 ### License
 
 #### ODC-PDDL-1.0
