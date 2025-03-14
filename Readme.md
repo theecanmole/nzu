@@ -57,15 +57,17 @@ This data package and these datasets and the R scripts are made available under 
 
 3. [spotprices.csv](https://github.com/theecanmole/nzu/raw/master/spotprices.csv) (spot prices data, irregular dates and prices)
 
-4. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the monthly means of the spot price data)
+4. [spotpricesinfilled.csv](https://github.com/theecanmole/nzu/raw/master/spotpricesinfilled.csv) (infilled spot prices by working day)
 
-5. [weeklymeanprice.csv](https://github.com/theecanmole/nzu/raw/master/weeklymeanprice.csv) (the weekly means of the spot price data with 95 missing values)
+5. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the monthly means of the spot price data)
 
-6. [weeklypricefilled.csv](https://github.com/theecanmole/nzu/raw/master/weeklypricefilled.csv) (the weekly means of the spot price data with the missing values infilled via linear interpolation)
+6. [weeklymeanprice.csv](https://github.com/theecanmole/nzu/raw/master/weeklymeanprice.csv) (the weekly means of the spot price data with 95 missing values)
 
-7. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r) (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
+7. [weeklypricefilled.csv](https://github.com/theecanmole/nzu/raw/master/weeklypricefilled.csv) (the weekly means of the spot price data with the missing values infilled via linear interpolation)
 
-7. [Licence.txt](https://github.com/theecanmole/nzu/blob/master/Licence.txt) (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
+8. [NZU-charts.r](https://github.com/theecanmole/nzu/blob/master/NZU-charts.r) (R script file of code to create [charts](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg))
+
+9. [Licence.txt](https://github.com/theecanmole/nzu/blob/master/Licence.txt) (Public Domain  Dedication and License v1.0 http://opendatacommons.org/licenses/pddl/1.0/)
 
 #### Citation
 
