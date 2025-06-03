@@ -4,7 +4,7 @@
 
 This repository provides several examples of data series of trading prices for the New Zealand emission unit (or "NZU"), the domestic emission unit in the [New Zealand emissions trading scheme](https://en.wikipedia.org/wiki/New_Zealand_Emissions_Trading_Scheme/ "New Zealand emissions trading scheme").      
 
-* The web-scraped edited price data: [nzu-edited-raw-prices-data.csv](nzu-edited-raw-prices-data.csv).
+* The manually web-scraped edited price data: [nzu-edited-raw-prices-data.csv](nzu-edited-raw-prices-data.csv).
 
 * The mean monthly price data: [nzu-month-price.csv](nzu-month-price.csv).
 
@@ -18,13 +18,13 @@ This repository provides several examples of data series of trading prices for t
 
 ### Charts
 
-![New Zealand mean monthly emission unit prices 2010 - 2023](NZUprice-720by540.svg) 
+![New Zealand mean monthly emission unit prices 2010 - 2025](NZUprice-720by540.svg) 
 
-![New Zealand mean weekly emission unit prices 2010 - 2023](NZU-mean-weekly-prices-720by540.svg)
+![New Zealand mean weekly emission unit prices 2010 - 2025](NZU-mean-weekly-prices-720by540.svg)
 
-![New Zealand spot emission unit prices 2010 - 2023](NZU-spot-prices-720by540.svg)
+![New Zealand spot emission unit prices 2010 - 2025](NZU-spot-prices-720by540.svg)
 
-![New Zealand 31 day rolling mean emission unit spot prices 2010 - 2023](NZU-rollingmean-prices-720by540.svg)
+![New Zealand 31 day rolling mean emission unit spot prices 2010 - 2025](NZU-rollingmean-prices-720by540.svg)
 
 There is a chart of the monthly data at [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NZU-NZ-emission-unit-720by540.svg).
 

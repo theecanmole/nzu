@@ -116,6 +116,7 @@ str(weeklyprice)
   .. ..- attr(*, "week_start")= int 1
 
 ## Fill in the missing values in the weekly prices data series - as there are no prices for at least 95 weeks
+# check for NAs
 summary(weeklyprice$date) 
 
 # How many weeks should be included if there were prices for all weeks?
@@ -125,10 +126,10 @@ str(weeklypriceallDates)
 
 # How many weeks were there in weekly prices dataframe which omits weeks with missing prices?
 nrow(weeklyprice)
-[1] 686
+[1] 687
 # How many missing weeks?
 length(weeklypriceallDates) - nrow(weeklyprice)
-[1] 100
+[1] 99
 # So 100 missing prices/weeks 
 
 # create dataframe of all the weeks with missing weeks of prices as NA
