@@ -30,7 +30,7 @@ There is a chart of the monthly data at [Wikimedia Commons](https://commons.wiki
 
 #### Requirements
 
-Data preparation was performed with the [R programming language](https://www.r-project.org/about.html), R version 3.3.3 (2017-03-06) with the [RKWard 0.6.5 IDE](https://rkward.kde.org/) running on an i586-pc-linux-gnu (32-bit), [Debian GNU/Linux 9 (Stretch) MX-17](https://mxlinux.org/index.php) operating system on a Dell Inspiron 6000 laptop.
+Data preparation was performed with the [R programming language](https://www.r-project.org/about.html), R version 4.4.2 (2024-10-31) with the [RKWard 0.7.5 IDE](https://rkward.kde.org/) running on an i586-pc-linux-gnu (64-bit), [Debian GNU/Linux 12 (Bookworm) MX-21](https://mxlinux.org/index.php) operating system on a HP Probook 450 G4 laptop.
 
 #### Processing
 
