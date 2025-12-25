@@ -10,8 +10,6 @@ This repository provides several examples of data series of trading prices for t
 
 * The mean weekly price data with missing values infilled by linear interpolation: [weeklymeanprice.csv](weeklymeanprice.csv).
 
-* The spot prices which have missing values: [spotprices.csv](spotprices.csv).
-
 * The spot prices with the missing values infilled by linear interpolation: [spotpricesinfilled.csv](spotpricesinfilled.csv)
 
 * The 21 day rolling mean of the spot prices with the missing values infilled by linear interpolation: [spotrollmean31.csv](spotrollmean31.csv)
@@ -36,11 +34,12 @@ Data preparation was performed with the [R programming language](https://www.r-p
 
 #### Processing
 
-The price data has been web-scraped by a Python script 'api.py' (which was kindly contributed by [Edi Rose](https://github.com/edi-rose/)).
+The price data has been either webscraped manually or web-scraped by a Python script 'api.py' (which was kindly contributed by [Edi Rose](https://github.com/edi-rose/)).
+
 It is recorded in the file [nzu-edited-raw-prices-data](https://github.com/theecanmole/nzu/raw/master/nzu-edited-raw-prices-data). 
 
 The commands in the R script 
-[NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) process the raw data into a mean monthly time series, a mean weekly time series and an irregular time series of secondary market spot prices. These dataframes are then written to .csv files.
+[NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) process the raw data into a mean monthly time series, a mean weekly time series and an daily infilled time series of secondary market spot prices. These dataframes are then written to .csv files.
 
 ### License
 
@@ -57,7 +56,7 @@ This data package and these datasets and the R scripts are made available under 
 
 3. [spotprices.csv](https://github.com/theecanmole/nzu/raw/master/spotprices.csv) (spot prices data, irregular dates and prices)
 
-4. [spotpricesinfilled.csv](https://github.com/theecanmole/nzu/raw/master/spotpricesinfilled.csv) (infilled spot prices by working day)
+4. [spotpricesinfilled.csv](https://github.com/theecanmole/nzu/raw/master/spotpricesinfilled.csv) (infilled spot prices by business day)
 
 5. [nzu-month-price.csv](https://github.com/theecanmole/nzu/raw/master/nzu-month-price.csv) (the monthly means of the spot price data)
 
