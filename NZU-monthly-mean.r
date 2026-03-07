@@ -14,7 +14,7 @@ getwd()
 # download raw prices from Github
 urlrawdata <- c("https://raw.githubsimoncontent.com/theecanmole/nzu/master/NZU-weekly-prices-data.csv")
 
-download.file(urlrawdata, rawdata)
+download.file(urlrawdata, data)
 
 # or read in raw prices data from a local folder specifying header status as false
 data <- read.csv("nzu-edited-raw-prices-data.csv",header=FALSE,stringsAsFactors = FALSE)
@@ -93,7 +93,7 @@ head(data$week,2)
 data$week <- trunc(data$week) 
 
 # create new dataframe of weekly mean price based on 'aweek' variable 
-weeklyprice <- aggregate(price ~ week, data, mean) 
+weeklyprice <- aggregate(price ~ week, data, mean)
 
 str(weeklyprice) 
 'data.frame':	724 obs. of  2 variables:
@@ -185,7 +185,11 @@ str(weeklypricefilled)
 
 # Convert zoo time series to a data.frame
 weeklypricefilleddataframe <- data.frame(date=index(weeklypricefilled),price=coredata(weeklypricefilled))   
- 
+# round prices to cents
+weeklypricefilleddataframe[["price"]] <- round(weeklypricefilleddataframe[["price"]],2)
+summary(weeklypricefilleddataframe[["price"]])
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+   1.60    8.30   21.22   29.85   51.06   88.24
 # check dataframe
 str(weeklypricefilleddataframe)
 'data.frame':	825 obs. of  2 variables:
@@ -208,7 +212,7 @@ write.table(spotprice, file = "spotprices.csv", sep = ",", col.names = TRUE, qme
 write.table(monthprice, file = "nzu-month-price.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 # write the mean week price dataframe to a .csv file 
-write.table(weeklyprice, file = "weeklymeanprice.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
+write.table(weeklypricefilleddataframe, file = "weeklypricefilled.csv", sep = ",", col.names = TRUE, qmethod = "double",row.names = FALSE)
 
 ## fill in missing values in week day spot prices
 
