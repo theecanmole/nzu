@@ -41,6 +41,18 @@ It is recorded in the file [nzu-edited-raw-prices-data](https://github.com/theec
 The commands in the R script 
 [NZU-monthly-mean.r](https://github.com/theecanmole/nzu/blob/master/NZU-monthly-mean.r) process the raw data into a mean monthly time series, a mean weekly time series and an daily infilled time series of secondary market spot prices. These dataframes are then written to .csv files.
 
+#### Notes on Holidays
+
+Daily data is reported only on business days, with national public holidays and wellington regional holidays ommitted (not reported). 
+
+These days can be indenitified using the python [`holidays`](https://pypi.org/project/holidays/) package using:
+
+```python
+import holidays
+
+holidays.country_holidays("NZ", subdiv="WGN")
+```
+
 ### License
 
 #### ODC-PDDL-1.0
